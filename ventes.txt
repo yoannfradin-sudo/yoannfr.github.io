@@ -1,0 +1,4 @@
+Rapport des ventes du mois :
+Produit A: 150 unités
+Produit B: 220 unités
+Produit C: 85 unités

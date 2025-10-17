@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Yoann Fr. - Expert en IA Locale & Automatisation</title>
+    <link rel="icon" type="image/x-icon" href="/static/favicon.ico">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
+    <script src="https://unpkg.com/feather-icons"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vanta@latest/dist/vanta.globe.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;600&family=Space+Grotesk:wght@300;500;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #06b6d4;
+            --secondary: #0ea5e9;
+            --dark: #0f172a;
+            --darker: #020617;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'JetBrains Mono', monospace;
+            background: linear-gradient(135deg, var(--dark) 0%, var(--darker) 100%);
+            color: #e2e8f0;
+            overflow-x: hidden;
+            cursor: none;
+        }
+        
+        .custom-cursor {
+            width: 20px;
+            height: 20px;
+            border: 2px solid var(--primary);
+            border-radius: 50%;
+            position: fixed;
+            pointer-events: none;
+            z-index: 9999;
+            mix-blend-mode: difference;
+            transition: transform 0.1s ease;
+        }
+        
+        .cursor-follower {
+            width: 8px;
+            height: 8px;
+            background: var(--primary);
+            border-radius: 50%;
+            position: fixed;
+            pointer-events: none;
+            z-index: 9998;
+            transition: all 0.15s ease;
+        }
+        
+        .glow {
+            box-shadow: 0 0 20px rgba(6, 182, 212, 0.3);
+        }
+        
+        .terminal-text {
+            border-right: 2px solid var(--primary);
+            animation: blink 1s infinite;
+        }
+        
+        @keyframes blink {
+            0%, 100% { border-color: var(--primary); }
+            50% { border-color: transparent; }
+        }
+        
+        .section {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            padding: 2rem;
+        }
+        
+        .nav-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: #475569;
+            transition: all 0.3s ease;
+        }
+        
+        .nav-dot.active {
+            background: var(--primary);
+            box-shadow: 0 0 10px var(--primary);
+        }
+        
+        .skill-card {
+            background: rgba(15, 23, 42, 0.7);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(6, 182, 212, 0.1);
+            transition: all 0.3s ease;
+        }
+        
+        .skill-card:hover {
+            border-color: var(--primary);
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(6, 182, 212, 0.2);
+        }
+        
+        .typewriter {
+            overflow: hidden;
+            white-space: nowrap;
+            margin: 0 auto;
+            animation: typing 3.5s steps(40, end);
+        }
+        
+        @keyframes typing {
+            from { width: 0 }
+            to { width: 100% }
+        }
+        
+        .pulse-glow {
+            animation: pulse-glow 2s infinite;
+        }
+        
+        @keyframes pulse-glow {
+            0%, 100% { box-shadow: 0 0 5px rgba(6, 182, 212, 0.5); }
+            50% { box-shadow: 0 0 20px rgba(6, 182, 212, 0.8); }
+        }
+        
+        .glass {
+            background: rgba(15, 23, 42, 0.3);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+    </style>
+</head>
+<body>
+    <!-- Custom Cursor -->
+    <div class="custom-cursor"></div>
+    <div class="cursor-follower"></div>
+
+    <!-- Navigation -->
+    <nav class="fixed right-8 top-1/2 transform -translate-y-1/2 z-50 hidden md:flex flex-col space-y-4">
+        <a href="#accueil" class="nav-dot active" data-section="accueil"></a>
+        <a href="#competences" class="nav-dot" data-section="competences"></a>
+        <a href="#philosophie" class="nav-dot" data-section="philosophie"></a>
+        <a href="#contact" class="nav-dot" data-section="contact"></a>
+    </nav>
+
+    <!-- Mobile Menu Button -->
+    <button id="mobileMenuBtn" class="fixed top-6 right-6 z-50 md:hidden bg-slate-800/50 backdrop-blur-sm rounded-full p-3 glow">
+        <i data-feather="menu"></i>
+    </button>
+
+    <!-- Mobile Menu -->
+    <div id="mobileMenu" class="fixed inset-0 bg-slate-900/95 backdrop-blur-lg z-40 flex flex-col items-center justify-center space-y-8 transform translate-x-full transition-transform duration-300 md:hidden">
+        <button id="closeMobileMenu" class="absolute top-6 right-6">
+            <i data-feather="x" class="text-cyan-400"></i>
+        </button>
+        <a href="#accueil" class="text-2xl font-semibold text-cyan-400 hover:text-cyan-300 transition-colors">Accueil</a>
+        <a href="#competences" class="text-2xl font-semibold text-cyan-400 hover:text-cyan-300 transition-colors">Compétences</a>
+        <a href="#philosophie" class="text-2xl font-semibold text-cyan-400 hover:text-cyan-300 transition-colors">Philosophie</a>
+        <a href="#contact" class="text-2xl font-semibold text-cyan-400 hover:text-cyan-300 transition-colors">Contact</a>
+    </div>
+
+    <!-- Hero Section -->
+    <section id="accueil" class="section">
+        <div id="vanta-bg" class="absolute inset-0"></div>
+        <div class="container mx-auto text-center z-10 max-w-4xl">
+            <h1 class="text-5xl md:text-7xl font-bold mb-6 font-['Space_Grotesk']">
+                <span class="bg-gradient-to-r from-cyan-400 to-blue-500 bg-clip-text text-transparent">Yoann Fr.</span>
+            </h1>
+            <div class="text-xl md:text-2xl mb-8 font-light">
+                <span class="terminal-text typewriter">Expert en Intelligence Artificielle Locale & Automatisation</span>
+            </div>
+            <p class="text-lg md:text-xl max-w-2xl mx-auto leading-relaxed glass p-6 rounded-xl">
+                "Je conçois des systèmes intelligents et autonomes, optimisés pour fonctionner en local, sans dépendance au cloud."
+            </p>
+            <div class="mt-12">
+                <a href="#competences" class="inline-flex items-center px-6 py-3 border border-cyan-400 text-cyan-400 rounded-full hover:bg-cyan-400/10 transition-all duration-300 pulse-glow">
+                    <span>Explorer mes compétences</span>
+                    <i data-feather="arrow-down" class="ml-2 w-5 h-5"></i>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Skills Section -->
+    <section id="competences" class="section bg-gradient-to-b from-slate-900 to-slate-950">
+        <div class="container mx-auto">
+            <h2 class="text-4xl md:text-5xl font-bold text-center mb-16 font-['Space_Grotesk']">
+                <span class="bg-gradient-to-r from-cyan-400 to-blue-500 bg-clip-text text-transparent">Domaines d'Expertise</span>
+        </h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Skill 1 -->
+                <div class="skill-card rounded-2xl p-6">
+                    <div class="w-16 h-16 rounded-full bg-cyan-500/10 flex items-center justify-center mb-4 glow">
+                    <i data-feather="cpu" class="text-cyan-400 w-8 h-8"></i>
+                </div>
+                <h3 class="text-xl font-semibold mb-3">Automatisation avec n8n</h3>
+                <p class="text-slate-300">Création de workflows automatisés complexes pour optimiser vos processus métier.</p>
+            </div>
+
+                <!-- Skill 2 -->
+                <div class="skill-card rounded-2xl p-6">
+                    <div class="w-16 h-16 rounded-full bg-cyan-500/10 flex items-center justify-center mb-4 glow">
+                    <i data-feather="box" class="text-cyan-400 w-8 h-8"></i>
+                </div>
+                <h3 class="text-xl font-semibold mb-3">Environnements Docker & Gitea</h3>
+                <p class="text-slate-300">Déploiement et gestion de conteneurs pour un développement isolé et reproductible.</p>
+            </div>
+
+                <!-- Skill 3 -->
+                <div class="skill-card rounded-2xl p-6">
+                    <div class="w-16 h-16 rounded-full bg-cyan-500/10 flex items-center justify-center mb-4 glow">
+                    <i data-feather="message-square" class="text-cyan-400 w-8 h-8"></i>
+                </div>
+                <h3 class="text-xl font-semibold mb-3">Agents IA & Chatbots Locaux</h3>
+                <p class="text-slate-300">Conception d'assistants intelligents fonctionnant entièrement hors-ligne.</p>
+            </div>
+
+                <!-- Skill 4 -->
+                <div class="skill-card rounded-2xl p-6">
+                    <div class="w-16 h-16 rounded-full bg-cyan-500/10 flex items-center justify-center mb-4 glow">
+                    <i data-feather="code" class="text-cyan-400 w-8 h-8"></i>
+                </div>
+                <h3 class="text-xl font-semibold mb-3">Analyse de Données Python</h3>
+                <p class="text-slate-300">Traitement et visualisation de données massives avec des bibliothèques spécialisées.</p>
+            </div>
+
+                <!-- Skill 5 -->
+                <div class="skill-card rounded-2xl p-6">
+                    <div class="w-16 h-16 rounded-full bg-cyan-500/10 flex items-center justify-center mb-4 glow">
+                    <i data-feather="zap" class="text-cyan-400 w-8 h-8"></i>
+                </div>
+                <h3 class="text-xl font-semibold mb-3">Optimisation GPU & Performance IA</h3>
+                <p class="text-slate-300">Accélération matérielle pour des modèles d'IA plus rapides et efficaces.</p>
+            </div>
+
+                <!-- Skill 6 -->
+                <div class="skill-card rounded-2xl p-6">
+                    <div class="w-16 h-16 rounded-full bg-cyan-500/10 flex items-center justify-center mb-4 glow">
+                    <i data-feather="shield" class="text-cyan-400 w-8 h-8"></i>
+                </div>
+                <h3 class="text-xl font-semibold mb-3">Architecture Cloud-Indépendante</h3>
+                <p class="text-slate-300">Solutions conçues pour fonctionner de manière autonome, sans services externes.</p>
+            </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Philosophy Section -->
+    <section id="philosophie" class="section bg-gradient-to-b from-slate-950 to-slate-900">
+        <div class="container mx-auto text-center max-w-4xl">
+            <h2 class="text-4xl md:text-5xl font-bold mb-12 font-['Space_Grotesk']">
+                <span class="bg-gradient-to-r from-cyan-400 to-blue-500 bg-clip-text text-transparent">Philosophie Technique</span>
+        </h2>
+            <div class="glass rounded-3xl p-8 md:p-12">
+                <p class="text-2xl md:text-3xl leading-tight font-light mb-8">
+                    "L'innovation ne doit pas dépendre du cloud : elle doit être comprise, maîtrisée et locale."
+                </p>
+                <div class="h-1 w-24 bg-gradient-to-r from-cyan-400 to-blue-500 mx-auto mb-8 rounded-full"></div>
+                <p class="text-lg md:text-xl text-slate-300 max-w-3xl mx-auto leading-relaxed">
+                    Dans un monde numérique de plus en plus centralisé, je défends une approche différente : 
+                    des systèmes intelligents qui préservent votre souveraineté données, réduisent votre latence 
+                    et maximisent votre contrôle. L'avenir de la technologie réside dans la décentralisation 
+                    et l'autonomie.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="section bg-gradient-to-b from-slate-900 to-slate-950">
+        <div class="container mx-auto text-center">
+            <h2 class="text-4xl md:text-5xl font-bold mb-12 font-['Space_Grotesk']">
+                <span class="bg-gradient-to-r from-cyan-400 to-blue-500 bg-clip-text text-transparent">Contact & Collaboration</span>
+        </h2>
+            <div class="max-w-2xl mx-auto glass rounded-3xl p-8">
+                <p class="text-xl mb-8 text-slate-300">
+                    Prêt à développer des solutions intelligentes et autonomes ?
+                </p>
+                <div class="flex justify-center space-x-6 mb-8">
+                    <a href="https://github.com" class="w-12 h-12 rounded-full bg-slate-800 flex items-center justify-center hover:bg-cyan-500/10 transition-all duration-300 glow">
+                        <i data-feather="github" class="text-cyan-400"></i>
+                    </a>
+                    <a href="https://linkedin.com" class="w-12 h-12 rounded-full bg-slate-800 flex items-center justify-center hover:bg-cyan-500/10 transition-all duration-300 glow">
+                        <i data-feather="linkedin" class="text-cyan-400"></i>
+                    </a>
+                    <a href="mailto:contact@example.com" class="w-12 h-12 rounded-full bg-slate-800 flex items-center justify-center hover:bg-cyan-500/10 transition-all duration-300 glow">
+                        <i data-feather="mail" class="text-cyan-400"></i>
+                    </a>
+                </div>
+                <p class="text-slate-400 text-sm">
+                    Réponse garantie sous 24h
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-slate-950 py-8 border-t border-slate-800">
+        <div class="container mx-auto text-center">
+            <p class="text-slate-400">
+                Conçu par Yoann Fr. — génération locale, esprit libre.
+            </p>
+        </div>
+    </footer>
+
+    <script>
+        // Custom Cursor
+        const cursor = document.querySelector('.custom-cursor');
+        const cursorFollower = document.querySelector('.cursor-follower');
+        
+        document.addEventListener('mousemove', (e) => {
+            cursor.style.left = e.clientX + 'px';
+            cursor.style.top = e.clientY + 'px';
+            
+            setTimeout(() => {
+                cursorFollower.style.left = e.clientX + 'px';
+                cursorFollower.style.top = e.clientY + 'px';
+            }, 100);
+            
+            // Add hover effect
+            const hoverElements = document.querySelectorAll('a, button, .skill-card');
+            hoverElements.forEach(el => {
+                el.addEventListener('mouseenter', () => {
+                    cursor.style.transform = 'scale(1.5)';
+                    cursorFollower.style.transform = 'scale(1.5)';
+                });
+                
+                el.addEventListener('mouseleave', () => {
+                    cursor.style.transform = 'scale(1)';
+                    cursorFollower.style.transform = 'scale(1)';
+                });
+            });
+            
+            // Mobile Menu
+            const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+            const mobileMenu = document.getElementById('mobileMenu');
+            const closeMobileMenu = document.getElementById('closeMobileMenu');
+            
+            mobileMenuBtn.addEventListener('click', () => {
+                mobileMenu.classList.remove('translate-x-full');
+            });
+            
+            closeMobileMenu.addEventListener('click', () => {
+                mobileMenu.classList.add('translate-x-full');
+            });
+            
+            // Navigation dots
+            const navDots = document.querySelectorAll('.nav-dot');
+            const sections = document.querySelectorAll('.section');
+            
+            // Intersection Observer for nav dots
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const sectionId = entry.target.id;
+                        navDots.forEach(dot => {
+                            dot.classList.remove('active');
+                            if (dot.getAttribute('data-section') === sectionId) {
+                                dot.classList.add('active');
+                            }
+                        });
+                    }
+                });
+            }, { threshold: 0.5 });
+            
+            sections.forEach(section => {
+                observer.observe(section);
+            });
+            
+            // Vanta.js Background
+            VANTA.GLOBE({
+                el: "#vanta-bg",
+                mouseControls: true,
+                touchControls: true,
+                gyroControls: false,
+                minHeight: 200.00,
+                minWidth: 200.00,
+                scale: 1.00,
+                scaleMobile: 1.00,
+                color: 0x06b6d4,
+                backgroundColor: 0x020617,
+                size: 1.00
+            });
+            
+            // Smooth scrolling for navigation links
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    const target = document.querySelector(this.getAttribute('href'));
+                    if (target) {
+                        target.scrollIntoView({
+                            behavior: 'smooth',
+                            block: 'start'
+                        });
+                    }
+                });
+            });
+            
+            // Initialize Feather Icons
+            feather.replace();
+        </script>
+    </body>
+    </html>
