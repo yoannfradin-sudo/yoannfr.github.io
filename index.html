@@ -23,16 +23,13 @@
             padding: 0;
             box-sizing: border-box;
         }
-        
         body {
             font-family: 'JetBrains Mono', monospace;
             background: linear-gradient(135deg, var(--dark) 0%, var(--darker) 100%);
             color: #e2e8f0;
             overflow-x: hidden;
-            cursor: none;
         }
-        
-        .custom-cursor {
+.custom-cursor {
             width: 20px;
             height: 20px;
             border: 2px solid var(--primary);
@@ -133,11 +130,7 @@
     </style>
 </head>
 <body>
-    <!-- Custom Cursor -->
-    <div class="custom-cursor"></div>
-    <div class="cursor-follower"></div>
-
-    <!-- Navigation -->
+<!-- Navigation -->
     <nav class="fixed right-8 top-1/2 transform -translate-y-1/2 z-50 hidden md:flex flex-col space-y-4">
         <a href="#accueil" class="nav-dot active" data-section="accueil"></a>
         <a href="#competences" class="nav-dot" data-section="competences"></a>
@@ -306,34 +299,7 @@
     </footer>
 
     <script>
-        // Custom Cursor
-        const cursor = document.querySelector('.custom-cursor');
-        const cursorFollower = document.querySelector('.cursor-follower');
-        
-        document.addEventListener('mousemove', (e) => {
-            cursor.style.left = e.clientX + 'px';
-            cursor.style.top = e.clientY + 'px';
-            
-            setTimeout(() => {
-                cursorFollower.style.left = e.clientX + 'px';
-                cursorFollower.style.top = e.clientY + 'px';
-            }, 100);
-            
-            // Add hover effect
-            const hoverElements = document.querySelectorAll('a, button, .skill-card');
-            hoverElements.forEach(el => {
-                el.addEventListener('mouseenter', () => {
-                    cursor.style.transform = 'scale(1.5)';
-                    cursorFollower.style.transform = 'scale(1.5)';
-                });
-                
-                el.addEventListener('mouseleave', () => {
-                    cursor.style.transform = 'scale(1)';
-                    cursorFollower.style.transform = 'scale(1)';
-                });
-            });
-            
-            // Mobile Menu
+// Mobile Menu
             const mobileMenuBtn = document.getElementById('mobileMenuBtn');
             const mobileMenu = document.getElementById('mobileMenu');
             const closeMobileMenu = document.getElementById('closeMobileMenu');
