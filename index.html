@@ -239,49 +239,116 @@
     </div>
   </div>
 </section>
- <section id="exemples" class="py-20 px-6">
-    <div class="container mx-auto fade-in">
-      <h2 class="text-3xl md:text-5xl font-light mb-12 text-center">Exemples d'application</h2>
-      <div class="grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-        <!-- Exemple 1 -->
-        <div class="glass-card rounded-2xl p-6 fade-in">
-          <h3 class="text-xl font-medium mb-2">Responsable RH</h3>
-          <p class="text-gray-300 mb-2">Tri automatique des CV grâce à l’IA locale pour identifier rapidement les meilleurs candidats.</p>
-          <p class="text-blue-400 font-semibold">Gain de temps de 50 % et réduction du stress pour l’équipe.</p>
-        </div>
-        <!-- Exemple 2 -->
-        <div class="glass-card rounded-2xl p-6 fade-in">
-          <h3 class="text-xl font-medium mb-2">Manager d'usine</h3>
-          <p class="text-gray-300 mb-2">Surveillance locale des stocks et alertes automatiques pour éviter les ruptures.</p>
-          <p class="text-blue-400 font-semibold">Meilleure gestion des inventaires et réduction des pertes.</p>
-        </div>
-        <!-- Exemple 3 -->
-        <div class="glass-card rounded-2xl p-6 fade-in">
-          <h3 class="text-xl font-medium mb-2">Équipe commerciale</h3>
-          <p class="text-gray-300 mb-2">Agent IA local qui priorise automatiquement les emails entrants.</p>
-          <p class="text-blue-400 font-semibold">Réactivité client accrue et réduction de la surcharge mentale.</p>
-        </div>
-        <!-- Exemple 4 -->
-        <div class="glass-card rounded-2xl p-6 fade-in">
-          <h3 class="text-xl font-medium mb-2">Responsable marketing</h3>
-          <p class="text-gray-300 mb-2">Analyse locale des données clients pour identifier les campagnes les plus performantes.</p>
-          <p class="text-blue-400 font-semibold">Décisions rapides et campagnes plus rentables.</p>
-        </div>
-        <!-- Exemple 5 -->
-        <div class="glass-card rounded-2xl p-6 fade-in">
-          <h3 class="text-xl font-medium mb-2">Designer graphique</h3>
-          <p class="text-gray-300 mb-2">Optimisation automatique des rendus 3D grâce à l’IA locale.</p>
-          <p class="text-blue-400 font-semibold">Gain de temps sur la production et workflow plus fluide.</p>
-        </div>
-        <!-- Exemple 6 -->
-        <div class="glass-card rounded-2xl p-6 fade-in">
-          <h3 class="text-xl font-medium mb-2">Direction / IT</h3>
-          <p class="text-gray-300 mb-2">Surveillance des accès aux données sensibles en local, sans cloud.</p>
-          <p class="text-blue-400 font-semibold">Confidentialité garantie et risques de fuite minimisés.</p>
-        </div>
+<!-- Exemples Concrets -->
+<section id="exemples" class="py-20 px-6 ">
+  <div class="container mx-auto fade-in">
+    <h2 class="text-3xl md:text-5xl font-light mb-12 text-center text-white">Exemples concrets d'application</h2>
+    <p class="text-gray-300 text-center mb-12 max-w-3xl mx-auto">
+      Découvrez comment mes compétences en IA locale peuvent transformer différents métiers, avec des résultats concrets et mesurables.
+    </p>
+    
+    <div class="grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+      <!-- RH / Tri de CV -->
+      <div class="glass-card rounded-2xl p-6 fade-in text-center">
+        <i data-feather="users" class="text-blue-400 mb-4 w-10 h-10 mx-auto"></i>
+        <h3 class="text-xl font-medium mb-2">RH – Tri de CV</h3>
+        <p class="text-gray-300 mb-2">Analyse rapide des CV pour sélectionner les meilleurs profils automatiquement.</p>
+        <p class="text-blue-400 font-semibold mb-4">Gain de temps : 70 %</p>
+        <canvas id="chart-rh" class="mx-auto" width="200" height="150"></canvas>
+      </div>
+
+      <!-- Manager d'usine -->
+      <div class="glass-card rounded-2xl p-6 fade-in text-center">
+        <i data-feather="archive" class="text-purple-400 mb-4 w-10 h-10 mx-auto"></i>
+        <h3 class="text-xl font-medium mb-2">Manager d'usine</h3>
+        <p class="text-gray-300 mb-2">Surveillez vos stocks localement et évitez les ruptures.</p>
+        <p class="text-purple-400 font-semibold mb-4">Réduction des pertes : 60 %</p>
+        <canvas id="chart-usine" class="mx-auto" width="200" height="150"></canvas>
+      </div>
+
+      <!-- Équipe commerciale -->
+      <div class="glass-card rounded-2xl p-6 fade-in text-center">
+        <i data-feather="trending-up" class="text-green-400 mb-4 w-10 h-10 mx-auto"></i>
+        <h3 class="text-xl font-medium mb-2">Équipe commerciale</h3>
+        <p class="text-gray-300 mb-2">Tri et suivi automatique des emails clients pour ne rien laisser passer.</p>
+        <p class="text-green-400 font-semibold mb-4">E-mails traités : 85 %</p>
+        <canvas id="chart-commercial" class="mx-auto" width="200" height="150"></canvas>
+      </div>
+
+      <!-- Développeur / Data -->
+      <div class="glass-card rounded-2xl p-6 fade-in text-center">
+        <i data-feather="cpu" class="text-yellow-400 mb-4 w-10 h-10 mx-auto"></i>
+        <h3 class="text-xl font-medium mb-2">Développeur / Data</h3>
+        <p class="text-gray-300 mb-2">Optimisation des traitements et inférences locales pour réduire le temps de calcul.</p>
+        <p class="text-yellow-400 font-semibold mb-4">Temps réduit : 50 %</p>
+        <canvas id="chart-dev" class="mx-auto" width="200" height="150"></canvas>
+      </div>
+
+      <!-- Marketing -->
+      <div class="glass-card rounded-2xl p-6 fade-in text-center">
+        <i data-feather="bar-chart-2" class="text-pink-400 mb-4 w-10 h-10 mx-auto"></i>
+        <h3 class="text-xl font-medium mb-2">Marketing</h3>
+        <p class="text-gray-300 mb-2">Analyse locale des campagnes pour améliorer le taux de conversion.</p>
+        <p class="text-pink-400 font-semibold mb-4">Conversion : +30 %</p>
+        <canvas id="chart-marketing" class="mx-auto" width="200" height="150"></canvas>
+      </div>
+
+      <!-- IT / Sécurité -->
+      <div class="glass-card rounded-2xl p-6 fade-in text-center">
+        <i data-feather="shield" class="text-red-400 mb-4 w-10 h-10 mx-auto"></i>
+        <h3 class="text-xl font-medium mb-2">IT / Sécurité</h3>
+        <p class="text-gray-300 mb-2">Surveillance locale des incidents pour réduire les vulnérabilités.</p>
+        <p class="text-red-400 font-semibold mb-4">Incidents non détectés : -75 %</p>
+        <canvas id="chart-secu" class="mx-auto" width="200" height="150"></canvas>
       </div>
     </div>
-  </section>
+  </div>
+</section>
+
+<!-- Chart.js -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+   const chartsData = [
+        {id:'chart-rh', type:'bar', labels:['CV filtrés','CV restants'], data:[70,30], color:['#3b82f6','#374151'],},
+        {id:'chart-usine', type:'pie', labels:['Stocks perdus','Stocks préservés'], data:[40,60], color:['#a78bfa','#8b5cf6']},
+        {id:'chart-commercial', type:'bar', labels:['E-mails traités','E-mails non traités'], data:[85,15], color:['#10b981','#374151']},
+        {id:'chart-dev', type:'bar', labels:['Avant IA','Après IA'], data:[100,50], color:['#facc15','#fbbf24']},
+        {id:'chart-marketing', type:'doughnut', labels:['Conversion','Non conversion'], data:[30,70], color:['#ec4899','#f9a8d4']},
+        {id:'chart-secu', type:'pie', labels:['Incidents non détectés','Incidents détectés'], data:[25,75], color:['#f87171','#ef4444']}
+    ];
+chartsData.forEach(cfg=>{
+  const ctx = document.getElementById(cfg.id).getContext('2d');
+  new Chart(ctx, {
+    type: cfg.type,
+    data: {
+      labels: cfg.labels,
+      datasets: [{
+        data: cfg.data,
+        backgroundColor: cfg.color,
+        borderWidth: 1
+      }]
+    },
+    options: {
+      responsive: true,
+      plugins: {
+        legend: {
+          display: cfg.type !== 'bar', // On masque la légende pour les graphiques à barres
+          position: 'bottom',
+          labels: { color:'#fff', boxWidth:20 }
+        },
+        tooltip: { enabled: true }
+      },
+      scales: cfg.type==='bar' ? {
+        x: { ticks: { color: '#fff' }, grid: { color: 'rgba(255,255,255,0.1)' } },
+        y: { ticks: { color: '#fff' }, grid: { color: 'rgba(255,255,255,0.1)' }, beginAtZero: true }
+      } : {}
+    }
+  });
+});
+
+</script>
+
+
 
    <!-- Approche -->
   <section id="approche" class="min-h-screen py-20 px-6 flex items-center">
