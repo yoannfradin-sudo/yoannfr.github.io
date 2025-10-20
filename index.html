@@ -90,8 +90,31 @@
 
 <body class="bg-black text-white">
   <div id="vanta-bg" class="fixed inset-0 -z-10"></div>
+<!-- Mobile Navigation -->
+  <nav class="fixed bottom-4 left-1/2 transform -translate-x-1/2 w-11/12 md:hidden z-50 glass-nav rounded-3xl flex justify-around py-3 px-4 shadow-lg">
+    <a href="#accueil" class="flex flex-col items-center text-white hover:text-blue-400 transition">
+      <i data-feather="home" class="w-5 h-5 mb-1"></i>
+      <span class="text-xs">Accueil</span>
+    </a>
+    <a href="#projets" class="flex flex-col items-center text-white hover:text-purple-400 transition">
+      <i data-feather="grid" class="w-5 h-5 mb-1"></i>
+      <span class="text-xs">Domaines</span>
+    </a>
+    <a href="#approche" class="flex flex-col items-center text-white hover:text-green-400 transition">
+      <i data-feather="eye" class="w-5 h-5 mb-1"></i>
+      <span class="text-xs">Approche</span>
+    </a>
+    <a href="#apropos" class="flex flex-col items-center text-white hover:text-yellow-400 transition">
+      <i data-feather="user" class="w-5 h-5 mb-1"></i>
+      <span class="text-xs">À propos</span>
+    </a>
+    <a href="#contact" class="flex flex-col items-center text-white hover:text-orange-400 transition">
+      <i data-feather="mail" class="w-5 h-5 mb-1"></i>
+      <span class="text-xs">Contact</span>
+    </a>
+  </nav>
 
-  <!-- Navigation -->
+  <!-- Desktop Navigation -->
   <nav class="fixed top-0 w-full z-50 glass-nav border-b border-gray-800">
     <div class="container mx-auto px-6 py-4 flex justify-between items-center">
       <div class="text-lg md:text-xl font-light tracking-wider"></div>
@@ -105,9 +128,11 @@
     </div>
   </nav>
 
+  
   <!-- Accueil -->
   <section id="accueil" class="min-h-screen flex flex-col items-center justify-center text-center px-6">
-    <div class="max-w-4xl mx-auto fade-in">
+    <div class="glass-card rounded-2xl p-8 fade-in">
+      
       <h1 class="text-4xl md:text-6xl font-light mb-8 leading-tight">
         Je conçois des systèmes d'<span class="gradient-text font-bold">IA locales</span> qui rendent vos outils plus <span class="text-blue-400">autonomes</span>, <span class="text-blue-400">sécurisés</span> et <span class="text-blue-400">intelligents</span>.
       </h1>
@@ -125,84 +150,92 @@
     </div>
   </section>
 
-  <!-- Domaines -->
-<div class="grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-        <div class="glass-card rounded-2xl p-8 fade-in">
-          <i data-feather="git-branch" class="text-blue-400 mb-4 w-10 h-10"></i>
-          <h3 class="text-2xl font-light mb-4">Automatisation Cognitive</h3>
-          <p class="text-gray-400 mb-4 font-light">
-            J'automatise les tâches répétitives et les décisions simples grâce à  des scénarios intelligents.
-          </p>
-          <div class="skill-tags">
-            <span class="skill-tag">n8n</span>
-            <span class="skill-tag">Temps réel</span>
-            <span class="skill-tag">Observabilité</span>
-          </div>
-        </div>
-
-        <div class="glass-card rounded-2xl p-8 fade-in">
-          <i data-feather="box" class="text-purple-400 mb-4 w-10 h-10"></i>
-          <h3 class="text-2xl font-light mb-4">Conteneurisation</h3>
-          <p class="text-gray-400 mb-4 font-light">Chaque projet IA tourne dans un environnement isolÃ©, stable et portable.</p>
-          <div class="skill-tags">
-            <span class="skill-tag">Docker</span>
-            <span class="skill-tag">GitOps</span>
-            <span class="skill-tag">CI/CD</span>
-          </div>
-        </div>
-
-        <div class="glass-card rounded-2xl p-8 fade-in">
-          <i data-feather="cpu" class="text-green-400 mb-4 w-10 h-10"></i>
-          <h3 class="text-2xl font-light mb-4">Agents Autonomes</h3>
-          <p class="text-gray-400 mb-4 font-light">Création d'agents capables de raisonner et d'agir localement.</p>
-          <div class="skill-tags">
-            <span class="skill-tag">LLMs locaux</span>
-            <span class="skill-tag">Hybrid reasoning</span>
-            <span class="skill-tag">Offline inference</span>
-          </div>
-        </div>
-
-        <div class="glass-card rounded-2xl p-8 fade-in">
-          <i data-feather="database" class="text-yellow-400 mb-4 w-10 h-10"></i>
-          <h3 class="text-2xl font-light mb-4">Data Engineering & Intelligence Opérationnelle</h3>
-          <p class="text-gray-400 mb-4 font-light">Transformation rapide des données en leviers décisionnels.</p>
-          <div class="skill-tags">
-            <span class="skill-tag">ETL</span>
-            <span class="skill-tag">Data Pipeline</span>
-            <span class="skill-tag">Prototypage</span>
-            <span class="skill-tag">BI</span>
-            <span class="skill-tag">SQL</span>
-          </div>
-        </div>
-
-        <div class="glass-card rounded-2xl p-8 fade-in">
-          <i data-feather="zap" class="text-orange-400 mb-4 w-10 h-10"></i>
-          <h3 class="text-2xl font-light mb-4">Optimisation Algorithmique & GPU</h3>
-          <p class="text-gray-400 mb-4 font-light">Profilage, quantization et fine-tuning d'inférences locales ultra-performantes.</p>
-          <div class="skill-tags">
-            <span class="skill-tag">CUDA</span>
-            <span class="skill-tag">Profiling</span>
-            <span class="skill-tag">Quantization</span>
-            <span class="skill-tag">Fine-tuning</span>
-            <span class="skill-tag">Inference</span>
-          </div>
-        </div>
-
-        <div class="glass-card rounded-2xl p-8 fade-in">
-          <i data-feather="shield" class="text-red-400 mb-4 w-10 h-10"></i>
-          <h3 class="text-2xl font-light mb-4">Sécurité Systémique & Souveraineté Numérique</h3>
-          <p class="text-gray-400 mb-4 font-light">Architecture privacy-first. Maîtrise intégrale des flux et des dépendances.</p>
-          <div class="skill-tags">
-            <span class="skill-tag">Privacy</span>
-            <span class="skill-tag">Zero Trust</span>
-            <span class="skill-tag">Audit</span>
-            <span class="skill-tag">Cloud local</span>
-            <span class="skill-tag">Sécurité</span>
-          </div>
-        </div>
+<!-- Domaines -->
+<section id="projets" class="py-20 px-6">
+  <div class="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+    <div class="glass-card rounded-2xl p-8 fade-in">
+      <i data-feather="git-branch" class="text-blue-400 mb-4 w-10 h-10"></i>
+      <h3 class="text-2xl font-light mb-4">Automatisation Cognitive</h3>
+      <p class="text-gray-400 mb-4 font-light">
+        J'automatise les tâches répétitives et les décisions simples grâce à des scénarios intelligents.
+      </p>
+      <div class="skill-tags">
+        <span class="skill-tag">n8n</span>
+        <span class="skill-tag">Temps réel</span>
+        <span class="skill-tag">Observabilité</span>
       </div>
+    </div>
 
-  <!-- Approche -->
+    <div class="glass-card rounded-2xl p-8 fade-in">
+      <i data-feather="box" class="text-purple-400 mb-4 w-10 h-10"></i>
+      <h3 class="text-2xl font-light mb-4">Conteneurisation</h3>
+      <p class="text-gray-400 mb-4 font-light">
+        Chaque projet IA tourne dans un environnement isolé, stable et portable.
+      </p>
+      <div class="skill-tags">
+        <span class="skill-tag">Docker</span>
+        <span class="skill-tag">GitOps</span>
+        <span class="skill-tag">CI/CD</span>
+      </div>
+    </div>
+
+    <div class="glass-card rounded-2xl p-8 fade-in">
+      <i data-feather="cpu" class="text-green-400 mb-4 w-10 h-10"></i>
+      <h3 class="text-2xl font-light mb-4">Agents Autonomes</h3>
+      <p class="text-gray-400 mb-4 font-light">Création d'agents capables de raisonner et d'agir localement.</p>
+      <div class="skill-tags">
+        <span class="skill-tag">LLMs locaux</span>
+        <span class="skill-tag">Hybrid reasoning</span>
+        <span class="skill-tag">Offline inference</span>
+      </div>
+    </div>
+
+    <div class="glass-card rounded-2xl p-8 fade-in">
+      <i data-feather="database" class="text-yellow-400 mb-4 w-10 h-10"></i>
+      <h3 class="text-2xl font-light mb-4">Data Engineering & Intelligence Opérationnelle</h3>
+      <p class="text-gray-400 mb-4 font-light">Transformation rapide des données en leviers décisionnels.</p>
+      <div class="skill-tags">
+        <span class="skill-tag">ETL</span>
+        <span class="skill-tag">Data Pipeline</span>
+        <span class="skill-tag">Prototypage</span>
+        <span class="skill-tag">BI</span>
+        <span class="skill-tag">SQL</span>
+      </div>
+    </div>
+
+    <div class="glass-card rounded-2xl p-8 fade-in">
+      <i data-feather="zap" class="text-orange-400 mb-4 w-10 h-10"></i>
+      <h3 class="text-2xl font-light mb-4">Optimisation Algorithmique & GPU</h3>
+      <p class="text-gray-400 mb-4 font-light">
+        Profilage, quantization et fine-tuning d'inférences locales ultra-performantes.
+      </p>
+      <div class="skill-tags">
+        <span class="skill-tag">CUDA</span>
+        <span class="skill-tag">Profiling</span>
+        <span class="skill-tag">Quantization</span>
+        <span class="skill-tag">Fine-tuning</span>
+        <span class="skill-tag">Inference</span>
+      </div>
+    </div>
+
+    <div class="glass-card rounded-2xl p-8 fade-in">
+      <i data-feather="shield" class="text-red-400 mb-4 w-10 h-10"></i>
+      <h3 class="text-2xl font-light mb-4">Sécurité Systémique & Souveraineté Numérique</h3>
+      <p class="text-gray-400 mb-4 font-light">
+        Architecture privacy-first. Maîtrise intégrale des flux et des dépendances.
+      </p>
+      <div class="skill-tags">
+        <span class="skill-tag">Privacy</span>
+        <span class="skill-tag">Zero Trust</span>
+        <span class="skill-tag">Audit</span>
+        <span class="skill-tag">Cloud local</span>
+        <span class="skill-tag">Sécurité</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+   <!-- Approche -->
   <section id="approche" class="min-h-screen py-20 px-6 flex items-center">
     <div class="container mx-auto max-w-4xl fade-in">
       <h2 class="text-3xl md:text-5xl font-light mb-8 text-center">Ma vision de l'IA</h2>
@@ -223,10 +256,12 @@
   <!-- À propos -->
   <section id="apropos" class="min-h-screen py-20 px-6 flex items-center">
     <div class="container mx-auto max-w-6xl grid md:grid-cols-2 gap-12 items-center fade-in">
+      
       <img src="https://leclaireur.fnac.com/wp-content/uploads/2022/06/shutterstock-1039097026-1256x826.jpg"
         alt="Yoann Fradin"
         class="rounded-2xl w-full h-auto border border-gray-700 hover:border-blue-500 transition-all duration-700">
       <div>
+        <div class="glass-card rounded-2xl p-8 fade-in">
         <h2 class="text-3xl md:text-5xl font-light mb-6">Yoann Fradin</h2>
         <p class="text-lg md:text-xl leading-relaxed text-gray-300 mb-6 font-light">
           Passionné par les architectures distribuées et l’automatisation intelligente.  
@@ -298,6 +333,7 @@
     }, { threshold: 0.3 });
     document.querySelectorAll('.skill-tags').forEach(el => skillObserver.observe(el));
 
+    // Feather icons
     feather.replace();
 
     // Smooth scrolling
