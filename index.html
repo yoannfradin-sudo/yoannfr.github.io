@@ -1,301 +1,274 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="fr">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Yoann Fr. — IA & Automatisation (v2)</title>
-  <link rel="icon" href="/static/favicon.ico" />
-  <script src="https://cdn.tailwindcss.com"></script>
-  <script src="https://unpkg.com/feather-icons"></script>
-  <script src="https://cdn.jsdelivr.net/npm/vanta@latest/dist/vanta.net.min.js"></script>
-  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;500;700&family=JetBrains+Mono:wght@300;400;600&display=swap" rel="stylesheet">
-  <style>
-    :root{
-      --primary: #06b6d4;
-      --accent: #8b5cf6;
-      --blue: #3b82f6;
-      --bg-dark: #071023;
-      --glass-1: rgba(255,255,255,0.04);
-      --glass-2: rgba(255,255,255,0.06);
-      color-scheme: dark;
-    }
-    html,body{height:100%}
-    body{
-      margin:0;font-family:"Space Grotesk", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
-      background: radial-gradient(1200px 600px at 10% 10%, rgba(11,22,35,0.6), transparent 10%), linear-gradient(180deg,var(--bg-dark),#020617);
-      color:#e6eef8;overflow-x:hidden; -webkit-font-smoothing:antialiased; -moz-osx-font-smoothing:grayscale;
-    }
-    .glass {
-      background: linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0.02));
-      border:1px solid rgba(255,255,255,0.06);
-      backdrop-filter: blur(10px);
-      box-shadow: 0 8px 30px rgba(2,6,23,0.45);
-    }
-    .glass-strong{
-      background: linear-gradient(180deg, rgba(6,182,212,0.04), rgba(59,130,246,0.02));
-      border:1px solid rgba(6,182,212,0.08);
-      backdrop-filter: blur(14px);
-    }
-    /* cursor */
-    .custom-cursor{width:18px;height:18px;border:2px solid var(--primary);border-radius:50%;position:fixed;pointer-events:none;z-index:9999;mix-blend-mode:screen;transform:translate(-50%,-50%);transition:transform .12s ease, width .12s ease, height .12s ease}
-    .cursor-dot{width:6px;height:6px;border-radius:50%;position:fixed;pointer-events:none;z-index:9998;background:var(--primary);transform:translate(-50%,-50%);transition:all .18s ease}
-    a:hover ~ .custom-cursor{transform:translate(-50%,-50%) scale(1.4)}
-
-    /* title underline */
-    .section-title{position:relative;display:inline-block}
-    .section-title::after{content:'';position:absolute;left:0;bottom:-10px;height:6px;width:56px;border-radius:999px;background:linear-gradient(90deg,var(--primary),var(--blue));filter:blur(6px);opacity:.95}
-
-    /* fade-up */
-    .fade-up{opacity:0;transform:translateY(18px);transition:opacity .6s ease, transform .6s ease}
-    .fade-up.visible{opacity:1;transform:translateY(0)}
-
-    /* nav dots -> icons */
-    .nav-dot{width:44px;height:44px;border-radius:10px;display:grid;place-items:center}
-
-    /* mobile drawer */
-    #mobileMenu{transition:transform .36s cubic-bezier(.2,.9,.2,1)}
-
-    /* accessibility focus */
-    a:focus{outline:3px solid rgba(6,182,212,0.18);outline-offset:3px}
-
-    /* responsive tweaks */
-    @media (max-width:768px){
-      .glass{backdrop-filter:blur(8px)}
-    }
-  </style>
-</head>
-<body>
-  <!-- custom cursor elements -->
-  <div id="cursor" class="custom-cursor" aria-hidden></div>
-  <div id="cursorDot" class="cursor-dot" aria-hidden></div>
-
-  <!-- floating side nav (desktop) -->
-  <nav class="fixed right-6 top-1/2 transform -translate-y-1/2 z-50 hidden md:flex flex-col gap-3">
-    <div class="glass p-3 rounded-2xl flex flex-col gap-3 items-center">
-      <button class="nav-dot p-2 text-cyan-200 hover:bg-cyan-600/10 transition-all" data-target="#accueil" aria-label="Accueil" title="Accueil"><i data-feather="home"></i></button>
-      <button class="nav-dot p-2 text-cyan-200 hover:bg-cyan-600/10 transition-all" data-target="#competences" aria-label="Compétences" title="Compétences"><i data-feather="cpu"></i></button>
-      <button class="nav-dot p-2 text-cyan-200 hover:bg-cyan-600/10 transition-all" data-target="#philosophie" aria-label="Philosophie" title="Philosophie"><i data-feather="book"></i></button>
-      <button class="nav-dot p-2 text-cyan-200 hover:bg-cyan-600/10 transition-all" data-target="#contact" aria-label="Contact" title="Contact"><i data-feather="mail"></i></button>
-    </div>
-  </nav>
-
-  <!-- mobile menu button -->
-  <button id="mobileMenuBtn" class="md:hidden fixed top-6 right-6 z-50 p-3 glass rounded-full shadow-lg">
-    <i data-feather="menu"></i>
-  </button>
-
-  <!-- mobile drawer -->
-  <div id="mobileMenu" class="fixed inset-0 z-40 md:hidden flex items-start justify-end pointer-events-none">
-    <div id="mobileBackdrop" class="absolute inset-0 bg-black/40 pointer-events-auto opacity-0 transition-opacity"></div>
-    <aside class="glass-strong w-64 h-full p-6 translate-x-full pointer-events-auto" style="transform:translateX(0);">
-      <div class="flex items-center justify-between mb-6">
-        <div>
-          <h3 class="font-semibold text-lg">Menu</h3>
-          <p class="text-xs text-slate-300">Navigation rapide</p>
-        </div>
-        <button id="closeMobileMenu"><i data-feather="x"></i></button>
-      </div>
-      <nav class="flex flex-col gap-4">
-        <a href="#accueil" class="py-2 px-3 rounded hover:bg-white/3">Accueil</a>
-        <a href="#competences" class="py-2 px-3 rounded hover:bg-white/3">Compétences</a>
-        <a href="#philosophie" class="py-2 px-3 rounded hover:bg-white/3">Philosophie</a>
-        <a href="#contact" class="py-2 px-3 rounded hover:bg-white/3">Contact</a>
-      </nav>
-    </aside>
-  </div>
-
-  <!-- HERO -->
-  <header id="accueil" class="min-h-screen relative flex items-center">
-    <div id="vanta" class="absolute inset-0" aria-hidden></div>
-    <div class="container mx-auto z-10 px-6">
-      <div class="max-w-4xl mx-auto glass-strong rounded-3xl p-10 md:p-16 text-center">
-        <h1 class="text-4xl md:text-6xl font-bold leading-tight mb-4 fade-up"> 
-          <span style="background:linear-gradient(90deg,var(--primary),var(--blue),var(--accent));-webkit-background-clip:text;background-clip:text;color:transparent;">Yoann Fr.</span>
-        </h1>
-        <p class="text-lg md:text-2xl font-light mb-6 fade-up">
-          Ingénierie d’IA Locale et Automatisation Intelligente — systèmes autonomes, performants et souverains.
-        </p>
-        <p class="text-sm text-slate-300 max-w-2xl mx-auto mb-8">
-          J’orchestre des environnements hors-cloud combinant RAG, agents conversationnels et automatisations n8n, optimisés pour la performance GPU et la confidentialité absolue.
-        </p>
-        <div class="flex items-center justify-center gap-4">
-          <a href="#competences" class="inline-flex items-center gap-2 px-6 py-3 rounded-full glass-strong border border-cyan-500/20 hover:scale-[1.02] transition-transform">
-            Explorer mes compétences
-            <i data-feather="arrow-down" class="w-4 h-4"></i>
-          </a>
-          <a href="mailto:admin@yoannfradin.fr" class="inline-flex items-center gap-2 px-5 py-3 rounded-full bg-gradient-to-r from-cyan-500/10 to-blue-500/6 border border-transparent hover:brightness-105 transition">Contact</a>
-        </div>
-      </div>
-    </div>
-  </header>
-
-  <!-- COMPETENCES -->
-  <section id="competences" class="py-24">
-    <div class="container mx-auto px-6">
-      <h2 class="text-3xl md:text-5xl font-bold text-center mb-10 fade-up section-title">Domaines d'Expertise</h2>
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-
-        <article class="glass p-6 rounded-2xl fade-up">
-          <div class="flex items-center gap-4 mb-4">
-            <div class="w-14 h-14 rounded-full flex items-center justify-center glass-strong">
-              <i data-feather="cpu"></i>
-            </div>
-            <div>
-              <h3 class="font-semibold text-lg">Automatisation Cognitive (n8n)</h3>
-              <p class="text-sm text-slate-300">Conception de workflows intelligents et observables. Orchestration de données et décisions en temps réel.</p>
-            </div>
-          </div>
-        </article>
-
-        <article class="glass p-6 rounded-2xl fade-up">
-          <div class="flex items-center gap-4 mb-4">
-            <div class="w-14 h-14 rounded-full flex items-center justify-center glass-strong">
-              <i data-feather="box"></i>
-            </div>
-            <div>
-              <h3 class="font-semibold text-lg">Environnements Conteneurisés & CI Reproductible</h3>
-              <p class="text-sm text-slate-300">Déploiements isolés, scalables et traçables. Culture GitOps intégrée.</p>
-            </div>
-          </div>
-        </article>
-
-        <article class="glass p-6 rounded-2xl fade-up">
-          <div class="flex items-center gap-4 mb-4">
-            <div class="w-14 h-14 rounded-full flex items-center justify-center glass-strong">
-              <i data-feather="message-square"></i>
-            </div>
-            <div>
-              <h3 class="font-semibold text-lg">Agents Autonomes & Interfaces Conversationnelles</h3>
-              <p class="text-sm text-slate-300">Conception d’agents hors-ligne capables d’interprétation hybride (règles + IA).</p>
-            </div>
-          </div>
-        </article>
-
-        <article class="glass p-6 rounded-2xl fade-up">
-          <div class="flex items-center gap-4 mb-4">
-            <div class="w-14 h-14 rounded-full flex items-center justify-center glass-strong">
-              <i data-feather="code"></i>
-            </div>
-            <div>
-              <h3 class="font-semibold text-lg">Data Engineering & Intelligence Opérationnelle</h3>
-              <p class="text-sm text-slate-300">Transformation rapide des données en leviers décisionnels. Pipelines ETL et prototypage avancé.</p>
-            </div>
-          </div>
-        </article>
-
-        <article class="glass p-6 rounded-2xl fade-up">
-          <div class="flex items-center gap-4 mb-4">
-            <div class="w-14 h-14 rounded-full flex items-center justify-center glass-strong">
-              <i data-feather="zap"></i>
-            </div>
-            <div>
-              <h3 class="font-semibold text-lg">Optimisation Algorithmique & GPU</h3>
-              <p class="text-sm text-slate-300">Profilage, quantization et fine-tuning d’inférences locales ultra-performantes.</p>
-            </div>
-          </div>
-        </article>
-
-        <article class="glass p-6 rounded-2xl fade-up">
-          <div class="flex items-center gap-4 mb-4">
-            <div class="w-14 h-14 rounded-full flex items-center justify-center glass-strong">
-              <i data-feather="shield"></i>
-            </div>
-            <div>
-              <h3 class="font-semibold text-lg">Sécurité Systémique & Souveraineté Numérique</h3>
-              <p class="text-sm text-slate-300">Architecture privacy-first. Maîtrise intégrale des flux et des dépendances.</p>
-            </div>
-          </div>
-        </article>
-
-      </div>
-    </div>
-  </section>
-
-  <!-- PHILOSOPHIE -->
-  <section id="philosophie" class="py-24 bg-gradient-to-b from-transparent to-black/20">
-    <div class="container mx-auto px-6">
-      <div class="max-w-3xl mx-auto glass p-10 rounded-3xl fade-up">
-        <h2 class="text-3xl md:text-4xl font-bold mb-4 section-title">Philosophie Technique</h2>
-        <p class="text-lg text-slate-200 mb-6">
-          L’innovation ne se délègue pas. Construire localement, c’est reprendre la maîtrise du calcul, des données et du rythme technologique. La performance naît de la proximité, la confiance de la transparence, et la résilience de l’indépendance.
-        </p>
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-          <div class="text-sm">
-            <h4 class="font-semibold">Souveraineté</h4>
-            <p class="text-slate-300 text-xs">Contrôler les flux et le stockage localement.</p>
-          </div>
-          <div class="text-sm">
-            <h4 class="font-semibold">Efficacité</h4>
-            <p class="text-slate-300 text-xs">Optimiser coûts et performances GPU.</p>
-          </div>
-          <div class="text-sm">
-            <h4 class="font-semibold">Résilience</h4>
-            <p class="text-slate-300 text-xs">Design tolérant aux pannes et auditable.</p>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- CONTACT -->
-  <section id="contact" class="py-20">
-    <div class="container mx-auto px-6">
-      <div class="max-w-2xl mx-auto glass p-8 rounded-3xl fade-up text-center">
-        <h2 class="text-2xl font-bold mb-2">Contact & Collaboration</h2>
-        <p class="text-slate-300 mb-6">
-          Vous cherchez à bâtir une infrastructure IA locale, souveraine et performante ? Discutons d’une architecture sur mesure, pensée pour la durabilité et la maîtrise totale de vos flux.
-        </p>
-        <div class="flex items-center justify-center gap-4 mb-6">
-          <a href="https://www.linkedin.com/in/yoannfradin/" class="w-12 h-12 rounded-full glass flex items-center justify-center"><i data-feather="linkedin"></i></a>
-          <a href="mailto:admin@yoannfradin.fr" class="w-12 h-12 rounded-full glass flex items-center justify-center"><i data-feather="mail"></i></a>
-        </div>
-        <a href="mailto:admin@yoannfradin.fr" class="inline-block px-6 py-3 rounded-full bg-gradient-to-r from-cyan-500 to-blue-500">Me contacter</a>
-      </div>
-    </div>
-  </section>
-
-  <footer class="py-8">
-    <div class="container mx-auto px-6 text-center text-sm text-slate-400">Conçu par Yoann Fr. — génération locale, esprit libre.</div>
-  </footer>
-
-  <script>
-    // Feather icons
-    feather.replace();
-
-    // Vanta (net) init with reduced mobile load
-    VANTA.NET({ el: "#vanta", color: 0x06b6d4, backgroundColor: 0x020617, points: 10, maxDistance: 20, spacing: 18, showDots: false, scale: 1.0, scaleMobile: 1.2 });
-
-    // Cursor follow
-    const cursor = document.getElementById('cursor');
-    const cursorDot = document.getElementById('cursorDot');
-    document.addEventListener('mousemove', e=>{
-      cursor.style.left = e.clientX + 'px';
-      cursor.style.top = e.clientY + 'px';
-      cursorDot.style.left = e.clientX + 'px';
-      cursorDot.style.top = e.clientY + 'px';
-    });
-
-    // Mobile menu toggle
-    const mobileBtn = document.getElementById('mobileMenuBtn');
-    const mobileMenu = document.getElementById('mobileMenu');
-    const mobileBackdrop = document.getElementById('mobileBackdrop');
-    const closeMobile = document.getElementById('closeMobileMenu');
-    mobileBtn.addEventListener('click', ()=>mobileMenu.classList.toggle('translate-x-full'));
-    closeMobile.addEventListener('click', ()=>mobileMenu.classList.add('translate-x-full'));
-    mobileBackdrop.addEventListener('click', ()=>mobileMenu.classList.add('translate-x-full'));
-
-    // Scroll fade-up
-    const faders = document.querySelectorAll('.fade-up');
-    const appearOptions = { threshold: 0.1, rootMargin: "0px 0px -50px 0px" };
-    const appearOnScroll = new IntersectionObserver((entries, observer)=>{
-      entries.forEach(entry=>{
-        if(entry.isIntersecting){
-          entry.target.classList.add('visible');
-          observer.unobserve(entry.target);
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Yoann Fradin - Ingénieur IA Locale</title>
+    <meta name="description" content="Yoann Fradin, ingénieur expert en IA locale, automatisation et systèmes intelligents. Conception de systèmes d'IA locales qui automatisent, connectent et amplifient l'intelligence humaine.">
+    <link rel="icon" type="image/x-icon" href="/static/favicon.ico">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
+    <script src="https://unpkg.com/feather-icons"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r134/three.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vanta@latest/dist/vanta.net.min.js"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+        * {
+            font-family: 'Inter', sans-serif;
         }
-      });
-    }, appearOptions);
-    faders.forEach(fader=>appearOnScroll.observe(fader));
-  </script>
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s ease;
+        }
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .gradient-text {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .section-transition {
+            transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+    </style>
+</head>
+<body class="bg-black text-white overflow-x-hidden">
+    <div id="vanta-bg" class="fixed inset-0 -z-10"></div>
+    
+    <!-- Navigation -->
+    <nav class="fixed top-0 w-full z-50 bg-black/80 backdrop-blur-md border-b border-gray-800">
+        <div class="container mx-auto px-6 py-4">
+            <div class="flex justify-between items-center">
+                <div class="text-xl font-light tracking-wider">NEURALHORIZON</div>
+                <div class="hidden md:flex space-x-8">
+                    <a href="#accueil" class="nav-link hover:text-blue-400 transition-colors duration-300">Accueil</a>
+                    <a href="#projets" class="nav-link hover:text-blue-400 transition-colors duration-300">Domaine d'expertise</a>
+                    <a href="#approche" class="nav-link hover:text-blue-400 transition-colors duration-300">Approche</a>
+                    <a href="#apropos" class="nav-link hover:text-blue-400 transition-colors duration-300">À propos</a>
+                    <a href="#contact" class="nav-link hover:text-blue-400 transition-colors duration-300">Contact</a>
+                </div>
+                <button class="md:hidden">
+                    <i data-feather="menu"></i>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Accueil -->
+    <section id="accueil" class="min-h-screen flex items-center justify-center px-6">
+        <div class="text-center max-w-4xl mx-auto fade-in">
+            <h1 class="text-5xl md:text-7xl font-light mb-8 leading-tight">
+                Je conçois des systèmes d'<span class="gradient-text">IA locales</span> qui automatisent, connectent et amplifient l'intelligence humaine.
+            </h1>
+            <p class="text-xl md:text-2xl text-gray-300 mb-12 font-light">
+                Ingénieur spécialisé en automatisation et intelligence artificielle locale. Créateur de Synapse et d'environnements IA autonomes.
+            </p>
+            <a href="#projets" class="inline-block bg-white text-black px-8 py-4 rounded-full font-medium hover:bg-gray-100 transition-all duration-300 transform hover:scale-105">
+                Découvrir mon travail
+            </a>
+        </div>
+    </section>
+
+    <!-- Ajout des icônes supplémentaires -->
+    <script>
+        feather.replace({
+            'box': '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path><polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline><line x1="12" y1="22.08" x2="12" y2="12"></line></svg>',
+            'database': '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="5" rx="9" ry="3"></ellipse><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"></path><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"></path></svg>',
+            'activity': '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline></svg>',
+            'lock': '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>'
+        });
+    </script>
+<!-- Projets -->
+    <section id="projets" class="min-h-screen py-20 px-6">
+        <div class="container mx-auto max-w-6xl">
+            <div class="text-center mb-20 fade-in">
+                <h2 class="text-4xl md:text-5xl font-light mb-6">Domaines d'Expertise</h2>
+                <p class="text-xl text-gray-300 max-w-3xl mx-auto font-light">
+                    Approches techniques spécialisées pour des systèmes d'IA locale performants et souverains.
+                </p>
+            </div>
+            
+            <div class="grid md:grid-cols-2 gap-8">
+                <!-- Automatisation Cognitive -->
+                <div class="project-card fade-in bg-gray-900/50 backdrop-blur-sm rounded-2xl p-8 border border-gray-800 hover:border-blue-500/30 transition-all duration-500">
+                    <div class="w-16 h-16 bg-blue-500/20 rounded-xl flex items-center justify-center mb-6">
+                        <i data-feather="git-branch" class="text-blue-400"></i>
+                    </div>
+                    <h3 class="text-2xl font-light mb-4">Automatisation Cognitive (n8n)</h3>
+                    <p class="text-gray-400 mb-6 font-light">Conception de workflows intelligents et observables. Orchestration de données et décisions en temps réel.</p>
+                </div>
+
+                <!-- Environnements Conteneurisés -->
+                <div class="project-card fade-in bg-gray-900/50 backdrop-blur-sm rounded-2xl p-8 border border-gray-800 hover:border-blue-500/30 transition-all duration-500">
+                    <div class="w-16 h-16 bg-purple-500/20 rounded-xl flex items-center justify-center mb-6">
+                        <i data-feather="box" class="text-purple-400"></i>
+                    </div>
+                    <h3 class="text-2xl font-light mb-4">Environnements Conteneurisés & CI Reproductible</h3>
+                    <p class="text-gray-400 mb-6 font-light">Déploiements isolés, scalables et traçables. Culture GitOps intégrée.</p>
+                </div>
+
+                <!-- Agents Autonomes -->
+                <div class="project-card fade-in bg-gray-900/50 backdrop-blur-sm rounded-2xl p-8 border border-gray-800 hover:border-blue-500/30 transition-all duration-500">
+                    <div class="w-16 h-16 bg-green-500/20 rounded-xl flex items-center justify-center mb-6">
+                        <i data-feather="cpu" class="text-green-400"></i>
+                    </div>
+                    <h3 class="text-2xl font-light mb-4">Agents Autonomes & Interfaces Conversationnelles</h3>
+                    <p class="text-gray-400 mb-6 font-light">Conception d'agents hors-ligne capables d'interprétation hybride (règles + IA).</p>
+                </div>
+
+                <!-- Data Engineering -->
+                <div class="project-card fade-in bg-gray-900/50 backdrop-blur-sm rounded-2xl p-8 border border-gray-800 hover:border-blue-500/30 transition-all duration-500">
+                    <div class="w-16 h-16 bg-orange-500/20 rounded-xl flex items-center justify-center mb-6">
+                        <i data-feather="database" class="text-orange-400"></i>
+                    </div>
+                    <h3 class="text-2xl font-light mb-4">Data Engineering & Intelligence Opérationnelle</h3>
+                    <p class="text-gray-400 mb-6 font-light">Transformation rapide des données en leviers décisionnels. Pipelines ETL et prototypage avancé.</p>
+                </div>
+
+                <!-- Optimisation Algorithmique -->
+                <div class="project-card fade-in bg-gray-900/50 backdrop-blur-sm rounded-2xl p-8 border border-gray-800 hover:border-blue-500/30 transition-all duration-500">
+                    <div class="w-16 h-16 bg-red-500/20 rounded-xl flex items-center justify-center mb-6">
+                        <i data-feather="activity" class="text-red-400"></i>
+                    </div>
+                    <h3 class="text-2xl font-light mb-4">Optimisation Algorithmique & GPU</h3>
+                    <p class="text-gray-400 mb-6 font-light">Profilage, quantization et fine-tuning d'inférences locales ultra-performantes.</p>
+                </div>
+
+                <!-- Sécurité Systémique -->
+                <div class="project-card fade-in bg-gray-900/50 backdrop-blur-sm rounded-2xl p-8 border border-gray-800 hover:border-blue-500/30 transition-all duration-500">
+                    <div class="w-16 h-16 bg-indigo-500/20 rounded-xl flex items-center justify-center mb-6">
+                        <i data-feather="lock" class="text-indigo-400"></i>
+                    </div>
+                    <h3 class="text-2xl font-light mb-4">Sécurité Systémique & Souveraineté Numérique</h3>
+                    <p class="text-gray-400 mb-6 font-light">Architecture privacy-first. Maîtrise intégrale des flux et des dépendances.</p>
+                </div>
+            </div>
+</div>
+    </section>
+
+    <!-- Approche -->
+    <section id="approche" class="min-h-screen py-20 px-6 flex items-center">
+        <div class="container mx-auto max-w-4xl">
+            <div class="fade-in">
+                <h2 class="text-4xl md:text-5xl font-light mb-12 text-center">Ma vision de l'IA</h2>
+                <div class="bg-gray-900/30 backdrop-blur-sm rounded-3xl p-12 border border-gray-800">
+                    <p class="text-xl md:text-2xl leading-relaxed text-gray-200 font-light">
+                    Je crois à une intelligence distribuée, éthique et locale.
+                    L'IA ne doit pas dépendre du cloud, mais amplifier les capacités humaines à proximité de la donnée.
+                    Mon travail s'articule autour de trois piliers : <span class="text-blue-400">autonomie</span>, <span class="text-blue-400">sécurité</span> et <span class="text-blue-400">performance</span>.
+                    J'expérimente, j'optimise, et je rends ces outils accessibles à tous ceux qui veulent maîtriser leur environnement numérique.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- À propos -->
+    <section id="apropos" class="min-h-screen py-20 px-6 flex items-center">
+        <div class="container mx-auto max-w-6xl">
+            <div class="grid md:grid-cols-2 gap-16 items-center">
+                <div class="fade-in">
+                    <img src="http://static.photos/technology/640x360/42" alt="Yoann Fradin" class="rounded-2xl w-full h-auto border border-gray-700 hover:border-blue-500 transition-all duration-700" loading="lazy">
+</div>
+                <div class="fade-in">
+                    <h2 class="text-4xl md:text-5xl font-light mb-8">Yoann Fradin</h2>
+                    <p class="text-xl leading-relaxed text-gray-300 mb-8 font-light">
+                    Ingénieur passionné par les architectures distribuées et l'automatisation intelligente.
+                    J'explore la frontière entre systèmes humains et machines locales.
+                    Mon objectif : concevoir des écosystèmes IA capables d'agir, d'apprendre et d'interagir sans dépendance extérieure.
+                    </p>
+                    <div class="space-y-4">
+                        <div class="flex items-center text-gray-400">
+                            <i data-feather="map-pin" class="w-5 h-5 mr-3"></i>
+                            <span>France</span>
+                        </div>
+                        <div class="flex items-center text-gray-400">
+                            <i data-feather="award" class="w-5 h-5 mr-3"></i>
+                            <span>Expert en IA Locale & Automatisation</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact -->
+    <section id="contact" class="min-h-screen py-20 px-6 flex items-center justify-center">
+        <div class="container mx-auto max-w-2xl text-center fade-in">
+            <h2 class="text-4xl md:text-5xl font-light mb-8">Entrer en contact</h2>
+            <p class="text-xl text-gray-300 mb-12 font-light max-w-xl mx-auto">
+                Vous souhaitez collaborer, intégrer l'IA locale à vos systèmes ou simplement échanger sur mes travaux ?
+            </p>
+            <a href="mailto:contact@yoannfradin.fr" class="inline-block border border-white/30 text-white px-8 py-4 rounded-full font-medium hover:bg-white hover:text-black transition-all duration-300 transform hover:scale-105">
+                contact@yoannfradin.fr
+            </a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="py-8 px-6 border-t border-gray-800">
+        <div class="container mx-auto text-center">
+            <p class="text-gray-500 font-light">&copy; 2024 Yoann Fradin. Tous droits réservés.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Vanta.js background
+        VANTA.NET({
+            el: "#vanta-bg",
+            mouseControls: true,
+            touchControls: true,
+            gyroControls: false,
+            minHeight: 200.00,
+            minWidth: 200.00,
+            scale: 1.00,
+            scaleMobile: 1.00,
+            color: 0x3b82f6,
+            backgroundColor: 0x000000,
+            points: 12.00,
+            maxDistance: 22.00,
+            spacing: 18.00
+        });
+
+        // Scroll animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, observerOptions);
+
+        // Observe all fade-in elements
+        document.querySelectorAll('.fade-in').forEach(el => {
+            observer.observe(el);
+        });
+
+        // Smooth scrolling for navigation
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Initialize Feather Icons
+        feather.replace();
+    </script>
 </body>
 </html>
