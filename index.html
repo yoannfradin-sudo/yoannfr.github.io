@@ -31,7 +31,24 @@
             -webkit-text-fill-color: transparent;
             background-clip: text;
         }
-        .section-transition {
+        .glass-card {
+            background: rgba(30, 41, 59, 0.4);
+            backdrop-filter: blur(16px) saturate(180%);
+            -webkit-backdrop-filter: blur(16px) saturate(180%);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+        }
+        .glass-card:hover {
+            border-color: rgba(99, 102, 241, 0.3);
+            transform: translateY(-5px);
+        }
+        .glass-nav {
+            background: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(16px) saturate(180%);
+            -webkit-backdrop-filter: blur(16px) saturate(180%);
+        }
+.section-transition {
             transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
         }
     </style>
@@ -40,8 +57,8 @@
     <div id="vanta-bg" class="fixed inset-0 -z-10"></div>
     
     <!-- Navigation -->
-    <nav class="fixed top-0 w-full z-50 bg-black/80 backdrop-blur-md border-b border-gray-800">
-        <div class="container mx-auto px-6 py-4">
+    <nav class="fixed top-0 w-full z-50 glass-nav border-b border-gray-800">
+<div class="container mx-auto px-6 py-4">
             <div class="flex justify-between items-center">
                 <div class="text-xl font-light tracking-wider">IA EXPERT</div>
                 <div class="hidden md:flex space-x-8">
@@ -62,10 +79,10 @@
     <section id="accueil" class="min-h-screen flex items-center justify-center px-6">
         <div class="text-center max-w-4xl mx-auto fade-in">
             <h1 class="text-5xl md:text-7xl font-light mb-8 leading-tight">
-                Je conçois des systèmes d'<span class="gradient-text">IA locales</span> qui automatisent, connectent et amplifient l'intelligence humaine.
-            </h1>
+                Je conçois des systèmes d'<span class="gradient-text font-bold animate-pulse" style="animation-duration: 10s; text-shadow: 0 0 10px rgba(99, 102, 241, 0.7);">IA locales</span> qui automatisent, connectent et amplifient l'intelligence humaine.
+</h1>
             <p class="text-xl md:text-2xl text-gray-300 mb-12 font-light">
-                Spécialisé en automatisation et intelligence artificielle locale.
+                Spécialisé en automatisation et intelligence artificielle locale. Créateur de Synapse et d'environnements IA autonomes.
             </p>
             <a href="#projets" class="inline-block bg-white text-black px-8 py-4 rounded-full font-medium hover:bg-gray-100 transition-all duration-300 transform hover:scale-105">
                 Découvrir mon travail
@@ -94,8 +111,8 @@
             
             <div class="grid md:grid-cols-2 gap-8">
                 <!-- Automatisation Cognitive -->
-                <div class="project-card fade-in bg-gray-900/50 backdrop-blur-sm rounded-2xl p-8 border border-gray-800 hover:border-blue-500/30 transition-all duration-500">
-                    <div class="w-16 h-16 bg-blue-500/20 rounded-xl flex items-center justify-center mb-6">
+                <div class="project-card fade-in glass-card rounded-2xl p-8">
+<div class="w-16 h-16 bg-blue-500/20 rounded-xl flex items-center justify-center mb-6">
                         <i data-feather="git-branch" class="text-blue-400"></i>
                     </div>
                     <h3 class="text-2xl font-light mb-4">Automatisation Cognitive (n8n)</h3>
@@ -155,8 +172,8 @@
         <div class="container mx-auto max-w-4xl">
             <div class="fade-in">
                 <h2 class="text-4xl md:text-5xl font-light mb-12 text-center">Ma vision de l'IA</h2>
-                <div class="bg-gray-900/30 backdrop-blur-sm rounded-3xl p-12 border border-gray-800">
-                    <p class="text-xl md:text-2xl leading-relaxed text-gray-200 font-light">
+                <div class="glass-card rounded-3xl p-12">
+<p class="text-xl md:text-2xl leading-relaxed text-gray-200 font-light">
                     Je crois à une intelligence distribuée, éthique et locale.
                     L'IA ne doit pas dépendre du cloud, mais amplifier les capacités humaines à proximité de la donnée.
                     Mon travail s'articule autour de trois piliers : <span class="text-blue-400">autonomie</span>, <span class="text-blue-400">sécurité</span> et <span class="text-blue-400">performance</span>.
