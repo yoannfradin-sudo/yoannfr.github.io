@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Yoann Fradin – Expert IA Locale</title>
-  <meta name="description" content="Yoann Fradin, expert en IA locale, automatisation et systèmes intelligents. Conception de systèmes d'IA locales qui automatisent, connectent et amplifient l'intelligence humaine.">
+  <title>Yoann Fradin – Expert en IA Locale & Automatisation Intelligente</title>
+  <meta name="description" content="Expert en IA locale, edge computing et automatisation. J'aide les entreprises à déployer des solutions d'intelligence artificielle rapides, sûres et souveraines.">
   <link rel="icon" type="image/x-icon" href="/static/favicon.ico">
   <script src="https://cdn.tailwindcss.com"></script>
   <script src="https://unpkg.com/feather-icons"></script>
@@ -12,36 +12,83 @@
   <script src="https://cdn.jsdelivr.net/npm/vanta@latest/dist/vanta.net.min.js"></script>
 
   <style>
-    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
-    * { font-family: 'Inter', sans-serif; }
+    @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&display=swap');
+    * { font-family: 'Space Grotesk', 'Inter', -apple-system, sans-serif; }
 
-    body { overflow-x: hidden; }
+    body { 
+      overflow-x: hidden;
+      background: linear-gradient(180deg, #0A0E27 0%, #0F1419 50%, #000000 100%);
+    }
 
-    .fade-in { opacity: 0; transform: translateY(30px); transition: all 0.8s ease; }
+    /* Animations */
+    .fade-in { 
+      opacity: 0; 
+      transform: translateY(40px); 
+      transition: opacity 0.9s cubic-bezier(0.4, 0, 0.2, 1), transform 0.9s cubic-bezier(0.4, 0, 0.2, 1);
+    }
     .fade-in.visible { opacity: 1; transform: translateY(0); }
 
-    .gradient-text {
-      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    .slide-in-left {
+      opacity: 0;
+      transform: translateX(-50px);
+      transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    .slide-in-left.visible { opacity: 1; transform: translateX(0); }
+
+    /* Gradients premium */
+    .gradient-text-cyan {
+      background: linear-gradient(135deg, #00D9FF 0%, #06b6d4 50%, #0891b2 100%);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       background-clip: text;
+      font-weight: 700;
     }
 
-    .glass-card {
-      background: rgba(30, 41, 59, 0.4);
-      backdrop-filter: blur(16px) saturate(180%);
-      border: 1px solid rgba(255, 255, 255, 0.08);
-      box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
-      transition: all 0.3s ease;
+    .gradient-border {
+      position: relative;
+      background: rgba(15, 20, 25, 0.6);
+      border-radius: 1.5rem;
+      padding: 2px;
     }
+
+    .gradient-border::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      border-radius: 1.5rem;
+      padding: 2px;
+      background: linear-gradient(135deg, #00D9FF, #3b82f6, #8b5cf6);
+      -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+      mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+      -webkit-mask-composite: xor;
+      mask-composite: exclude;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+
+    .gradient-border:hover::before {
+      opacity: 1;
+    }
+
+    /* Glass cards premium */
+    .glass-card {
+      background: rgba(15, 20, 25, 0.7);
+      backdrop-filter: blur(20px) saturate(180%);
+      border: 1px solid rgba(0, 217, 255, 0.1);
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3), 0 0 60px rgba(0, 217, 255, 0.05);
+      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    
     .glass-card:hover {
-      border-color: rgba(99, 102, 241, 0.3);
-      transform: translateY(-5px);
+      border-color: rgba(0, 217, 255, 0.3);
+      transform: translateY(-8px) scale(1.02);
+      box-shadow: 0 12px 48px rgba(0, 0, 0, 0.4), 0 0 80px rgba(0, 217, 255, 0.15);
     }
 
     .glass-nav {
-      background: rgba(0, 0, 0, 0.7);
-      backdrop-filter: blur(16px) saturate(180%);
+      background: rgba(10, 14, 39, 0.8);
+      backdrop-filter: blur(20px) saturate(180%);
+      border-bottom: 1px solid rgba(0, 217, 255, 0.1);
     }
 
     .skill-tags {
@@ -52,23 +99,27 @@
     }
 
     .skill-tag {
-      background: rgba(99, 102, 241, 0.1);
-      border: 1px solid rgba(99, 102, 241, 0.3);
+      background: rgba(0, 217, 255, 0.08);
+      border: 1px solid rgba(0, 217, 255, 0.25);
       border-radius: 9999px;
-      padding: 0.35rem 0.9rem;
-      font-size: 0.8rem;
-      color: #818cf8;
+      padding: 0.4rem 1rem;
+      font-size: 0.85rem;
+      color: #00D9FF;
+      font-weight: 500;
       opacity: 0;
       transform: translateY(20px);
+      transition: all 0.3s ease;
     }
 
     .skill-tag.visible {
-      animation: fadeInUp 0.6s ease-out forwards;
+      animation: fadeInUp 0.6s cubic-bezier(0.4, 0, 0.2, 1) forwards;
     }
 
     .skill-tag:hover {
-      background: rgba(99, 102, 241, 0.2);
-      transform: translateY(-2px);
+      background: rgba(0, 217, 255, 0.15);
+      border-color: rgba(0, 217, 255, 0.5);
+      transform: translateY(-3px);
+      box-shadow: 0 4px 20px rgba(0, 217, 255, 0.2);
     }
 
     @keyframes fadeInUp {
@@ -76,189 +127,306 @@
       100% { opacity: 1; transform: translateY(0); }
     }
 
-    @media (max-width: 768px) {
-      h1 { font-size: 1.8rem !important; }
-      h2 { font-size: 1.6rem !important; }
-      .text-xl, .text-2xl { font-size: 1rem !important; }
-      .glass-card { padding: 1.5rem; }
-      .skill-tag { font-size: 0.7rem; padding: 0.3rem 0.7rem; }
-      .grid { gap: 1rem !important; }
-      section { padding: 3rem 1rem !important; }
+    /* Glow effects */
+    .glow-cyan {
+      box-shadow: 0 0 20px rgba(0, 217, 255, 0.3), 0 0 40px rgba(0, 217, 255, 0.1);
     }
-    @keyframes animated-gradient {
-  0% { background-position: 0% 50%; }
-  50% { background-position: 100% 50%; }
-  100% { background-position: 0% 50%; }
-}
 
-.animated-gradient-text {
-  background: linear-gradient(270deg, #3b82f6, #8b5cf6, #10b981, #f59e0b);
-  background-size: 800% 800%;
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  animation: animated-gradient 8s ease infinite;
-}
+    .btn-primary {
+      background: linear-gradient(135deg, #00D9FF 0%, #06b6d4 100%);
+      border: none;
+      color: #0A0E27;
+      font-weight: 600;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 20px rgba(0, 217, 255, 0.3);
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-2px) scale(1.05);
+      box-shadow: 0 8px 30px rgba(0, 217, 255, 0.5);
+    }
+
+    .btn-secondary {
+      background: transparent;
+      border: 2px solid rgba(0, 217, 255, 0.5);
+      color: #00D9FF;
+      font-weight: 600;
+      transition: all 0.3s ease;
+    }
+
+    .btn-secondary:hover {
+      background: rgba(0, 217, 255, 0.1);
+      border-color: #00D9FF;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 20px rgba(0, 217, 255, 0.2);
+    }
+
+    /* Grid dynamic effect */
+    .grid-pattern {
+      background-image: 
+        linear-gradient(rgba(0, 217, 255, 0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0, 217, 255, 0.03) 1px, transparent 1px);
+      background-size: 50px 50px;
+      animation: gridMove 20s linear infinite;
+    }
+
+    @keyframes gridMove {
+      0% { background-position: 0 0; }
+      100% { background-position: 50px 50px; }
+    }
+
+    /* Pulse animation */
+    @keyframes pulse-glow {
+      0%, 100% { box-shadow: 0 0 20px rgba(0, 217, 255, 0.2); }
+      50% { box-shadow: 0 0 40px rgba(0, 217, 255, 0.4); }
+    }
+
+    .pulse-glow {
+      animation: pulse-glow 3s ease-in-out infinite;
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      h1 { font-size: 2rem !important; }
+      h2 { font-size: 1.75rem !important; }
+      .text-xl, .text-2xl { font-size: 1.1rem !important; }
+      .glass-card { padding: 1.5rem; }
+      .skill-tag { font-size: 0.75rem; padding: 0.35rem 0.8rem; }
+      .grid { gap: 1rem !important; }
+      section { padding: 4rem 1rem !important; }
+    }
+
+    /* Animated gradient text */
+    @keyframes animated-gradient {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    .animated-gradient-text {
+      background: linear-gradient(270deg, #00D9FF, #3b82f6, #8b5cf6, #06b6d4);
+      background-size: 400% 400%;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      animation: animated-gradient 6s ease infinite;
+      font-weight: 700;
+    }
   </style>
 </head>
 
-<body class="bg-black text-white">
-  <div id="vanta-bg" class="fixed inset-0 -z-10"></div>
+<body class="text-white relative">
+  <!-- Background avec grille dynamique -->
+  <div id="vanta-bg" class="fixed inset-0 -z-20"></div>
+  <div class="fixed inset-0 -z-10 grid-pattern opacity-30"></div>
 <!-- Mobile Navigation -->
   <nav class="fixed bottom-4 left-1/2 transform -translate-x-1/2 w-11/12 md:hidden z-50 glass-nav rounded-3xl flex justify-around py-3 px-4 shadow-lg">
-    <a href="#accueil" class="flex flex-col items-center text-white hover:text-blue-400 transition">
+    <a href="#accueil" class="flex flex-col items-center text-gray-300 hover:text-cyan-400 transition-all duration-300">
       <i data-feather="home" class="w-5 h-5 mb-1"></i>
       <span class="text-xs">Accueil</span>
     </a>
-    <a href="#projets" class="flex flex-col items-center text-white hover:text-purple-400 transition">
+    <a href="#expertise" class="flex flex-col items-center text-gray-300 hover:text-cyan-400 transition-all duration-300">
       <i data-feather="grid" class="w-5 h-5 mb-1"></i>
-      <span class="text-xs">Skills</span>
+      <span class="text-xs">Expertise</span>
     </a>
-    <a href="#exemples" class="flex flex-col items-center text-white hover:text-purple-400 transition">
+    <a href="#exemples" class="flex flex-col items-center text-gray-300 hover:text-cyan-400 transition-all duration-300">
       <i data-feather="trello" class="w-5 h-5 mb-1"></i>
       <span class="text-xs">Exemples</span>
     </a>
-    <a href="#approche" class="flex flex-col items-center text-white hover:text-green-400 transition">
-      <i data-feather="eye" class="w-5 h-5 mb-1"></i>
+    <a href="#approche" class="flex flex-col items-center text-gray-300 hover:text-cyan-400 transition-all duration-300">
+      <i data-feather="target" class="w-5 h-5 mb-1"></i>
       <span class="text-xs">Approche</span>
     </a>
-    <a href="#apropos" class="flex flex-col items-center text-white hover:text-yellow-400 transition">
-      <i data-feather="user" class="w-5 h-5 mb-1"></i>
-      <span class="text-xs">À propos</span>
-    </a>
-    <a href="#contact" class="flex flex-col items-center text-white hover:text-orange-400 transition">
+    <a href="#contact" class="flex flex-col items-center text-gray-300 hover:text-cyan-400 transition-all duration-300">
       <i data-feather="mail" class="w-5 h-5 mb-1"></i>
       <span class="text-xs">Contact</span>
     </a>
   </nav>
 
   <!-- Desktop Navigation -->
-  <nav class="fixed top-0 w-full z-50 glass-nav border-b border-gray-800">
-    <div class="container mx-auto px-6 py-4 flex justify-between items-center">
-      <div class="text-lg md:text-xl font-light tracking-wider"></div>
-      <div class="hidden md:flex space-x-8">
-        <a href="#accueil" class="hover:text-blue-400 transition">Accueil</a>
-        <a href="#projets" class="hover:text-blue-400 transition">Domaines d'expertise</a>
-        <a href="#exemples" class="hover:text-blue-400 transition">Exemples</a>
-        <a href="#approche" class="hover:text-blue-400 transition">Approche</a>
-        <a href="#apropos" class="hover:text-blue-400 transition">À propos</a>
-        <a href="#contact" class="hover:text-blue-400 transition">Contact</a>
+  <nav class="fixed top-0 w-full z-50 glass-nav">
+    <div class="container mx-auto px-6 py-5 flex justify-between items-center">
+      <div class="text-xl font-semibold tracking-tight">
+        <span class="gradient-text-cyan">YF</span>
+      </div>
+      <div class="hidden md:flex space-x-10 text-sm font-medium">
+        <a href="#accueil" class="text-gray-300 hover:text-cyan-400 transition-all duration-300">Accueil</a>
+        <a href="#expertise" class="text-gray-300 hover:text-cyan-400 transition-all duration-300">Expertise</a>
+        <a href="#exemples" class="text-gray-300 hover:text-cyan-400 transition-all duration-300">Exemples</a>
+        <a href="#approche" class="text-gray-300 hover:text-cyan-400 transition-all duration-300">Approche</a>
+        <a href="#contact" class="text-gray-300 hover:text-cyan-400 transition-all duration-300">Contact</a>
       </div>
     </div>
   </nav>
 
   
-  <!-- Accueil -->
-  <section id="accueil" class="min-h-screen flex flex-col items-center justify-center text-center px-6">
-    <div class="glass-card rounded-2xl p-8 fade-in">
-      
-      <h1 class="text-4xl md:text-6xl font-light mb-8 leading-tight">
-        Je conçois des systèmes d'<span class="animated-gradient-text font-bold">IA locales</span> qui rendent vos outils plus <span class="text-blue-400">autonomes</span>, <span class="text-blue-400">sécurisés</span> et <span class="text-blue-400">intelligents</span>.
-      </h1>
-      <p class="text-lg md:text-xl text-gray-300 mb-8 font-light">
-        Pour les entreprises, cela signifie moins de dépendance au cloud et plus de contrôle sur leurs données.
-      </p>
-      <div class="skill-tags justify-center mt-8 mb-10">
-        <span class="skill-tag">Inférence locale</span>
-        <span class="skill-tag">Optimisation GPU</span>
-        <span class="skill-tag">Edge computing</span>
+  <!-- Hero Section -->
+  <section id="accueil" class="min-h-screen flex flex-col items-center justify-center text-center px-6 pt-20">
+    <div class="max-w-5xl mx-auto fade-in">
+      <!-- Badge -->
+      <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full glass-card mb-8 pulse-glow">
+        <div class="w-2 h-2 bg-cyan-400 rounded-full animate-pulse"></div>
+        <span class="text-sm font-medium text-cyan-400">Expert en IA Locale & Edge Computing</span>
       </div>
-      <a href="#projets" class="inline-block bg-white text-black px-8 py-4 rounded-full font-medium hover:bg-gray-100 transition transform hover:scale-105">
-        Découvrir mon travail
-      </a>
+      
+      <!-- Main Title -->
+      <h1 class="text-5xl md:text-7xl font-bold mb-8 leading-tight">
+        Yoann Fradin
+      </h1>
+      <h2 class="text-3xl md:text-5xl font-light mb-10 leading-tight text-gray-300">
+        Expert en <span class="animated-gradient-text">IA Locale</span> & <span class="gradient-text-cyan">Automatisation Intelligente</span>
+      </h2>
+      
+      <!-- Phrase d'accroche -->
+      <p class="text-xl md:text-2xl text-gray-400 mb-12 max-w-3xl mx-auto font-light leading-relaxed">
+        J'aide les entreprises à rendre l'intelligence artificielle <span class="text-cyan-400 font-semibold">plus rapide</span>, <span class="text-cyan-400 font-semibold">plus sûre</span> et <span class="text-cyan-400 font-semibold">plus proche de leurs données</span>.
+      </p>
+
+      <!-- Tags -->
+      <div class="skill-tags justify-center mb-12">
+        <span class="skill-tag">Inférence Locale & RAG</span>
+        <span class="skill-tag">Optimisation GPU</span>
+        <span class="skill-tag">Edge Computing</span>
+        <span class="skill-tag">Automatisation Intelligente</span>
+      </div>
+
+      <!-- CTA Buttons -->
+      <div class="flex flex-col sm:flex-row gap-4 justify-center items-center">
+        <a href="#expertise" class="btn-primary px-8 py-4 rounded-full font-semibold inline-block transition-all">
+          Découvrir mon travail
+        </a>
+        <a href="#contact" class="btn-secondary px-8 py-4 rounded-full font-semibold inline-block transition-all">
+          Me contacter
+        </a>
+      </div>
     </div>
   </section>
 
-<!-- Domaines -->
-<section id="projets" class="py-20 px-6">
-  <div class="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-    <div class="glass-card rounded-2xl p-8 fade-in">
-      <i data-feather="git-branch" class="text-blue-400 mb-4 w-10 h-10"></i>
-      <h3 class="text-2xl font-light mb-4">Automatisation Cognitive</h3>
-      <p class="text-gray-400 mb-4 font-light">
-        J'automatise les tâches répétitives et les décisions simples grâce à des scénarios intelligents.
+<!-- Domaines d'Expertise -->
+<section id="expertise" class="py-24 px-6">
+  <div class="container mx-auto max-w-7xl">
+    <!-- Section Header -->
+    <div class="text-center mb-16 fade-in">
+      <h2 class="text-4xl md:text-6xl font-bold mb-6">
+        Domaines d'<span class="gradient-text-cyan">Expertise</span>
+      </h2>
+      <p class="text-xl text-gray-400 max-w-3xl mx-auto">
+        Des solutions d'IA locale qui transforment vos processus métiers tout en garantissant souveraineté et performance.
       </p>
-      <div class="skill-tags">
-        <span class="skill-tag">n8n</span>
-        <span class="skill-tag">Temps réel</span>
-        <span class="skill-tag">Observabilité</span>
-      </div>
     </div>
 
-    <div class="glass-card rounded-2xl p-8 fade-in">
-      <i data-feather="box" class="text-purple-400 mb-4 w-10 h-10"></i>
-      <h3 class="text-2xl font-light mb-4">Conteneurisation</h3>
-      <p class="text-gray-400 mb-4 font-light">
-        Chaque projet IA tourne dans un environnement isolé, stable et portable.
-      </p>
-      <div class="skill-tags">
-        <span class="skill-tag">Docker</span>
-        <span class="skill-tag">GitOps</span>
-        <span class="skill-tag">CI/CD</span>
+    <!-- Cards Grid -->
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+      <!-- Card 1 -->
+      <div class="glass-card rounded-2xl p-8 fade-in group">
+        <div class="mb-6 inline-block p-4 rounded-2xl bg-cyan-500/10 group-hover:bg-cyan-500/20 transition-all">
+          <i data-feather="database" class="text-cyan-400 w-10 h-10"></i>
+        </div>
+        <h3 class="text-2xl font-semibold mb-4 text-white">Inférence Locale & RAG</h3>
+        <p class="text-gray-400 mb-6 leading-relaxed">
+          Déployez des modèles d'IA puissants directement sur vos infrastructures. RAG optimisé pour des réponses contextuelles sans latence cloud.
+        </p>
+        <div class="skill-tags">
+          <span class="skill-tag">LLMs locaux</span>
+          <span class="skill-tag">RAG</span>
+          <span class="skill-tag">Vector DB</span>
+        </div>
       </div>
-    </div>
 
-    <div class="glass-card rounded-2xl p-8 fade-in">
-      <i data-feather="cpu" class="text-green-400 mb-4 w-10 h-10"></i>
-      <h3 class="text-2xl font-light mb-4">Agents Autonomes</h3>
-      <p class="text-gray-400 mb-4 font-light">Création d'agents capables de raisonner et d'agir localement.</p>
-      <div class="skill-tags">
-        <span class="skill-tag">LLMs locaux</span>
-        <span class="skill-tag">Hybrid reasoning</span>
-        <span class="skill-tag">Offline inference</span>
+      <!-- Card 2 -->
+      <div class="glass-card rounded-2xl p-8 fade-in group">
+        <div class="mb-6 inline-block p-4 rounded-2xl bg-blue-500/10 group-hover:bg-blue-500/20 transition-all">
+          <i data-feather="zap" class="text-blue-400 w-10 h-10"></i>
+        </div>
+        <h3 class="text-2xl font-semibold mb-4 text-white">Optimisation GPU & Edge</h3>
+        <p class="text-gray-400 mb-6 leading-relaxed">
+          Maximisez les performances de vos modèles avec quantization, profilage CUDA et déploiement edge computing haute efficacité.
+        </p>
+        <div class="skill-tags">
+          <span class="skill-tag">CUDA</span>
+          <span class="skill-tag">Quantization</span>
+          <span class="skill-tag">Edge AI</span>
+          <span class="skill-tag">Profiling</span>
+        </div>
       </div>
-    </div>
 
-    <div class="glass-card rounded-2xl p-8 fade-in">
-      <i data-feather="database" class="text-yellow-400 mb-4 w-10 h-10"></i>
-      <h3 class="text-2xl font-light mb-4">Data Engineering & Intelligence Opérationnelle</h3>
-      <p class="text-gray-400 mb-4 font-light">Transformation rapide des données en leviers décisionnels.</p>
-      <div class="skill-tags">
-        <span class="skill-tag">ETL</span>
-        <span class="skill-tag">Data Pipeline</span>
-        <span class="skill-tag">Prototypage</span>
-        <span class="skill-tag">BI</span>
-        <span class="skill-tag">SQL</span>
+      <!-- Card 3 -->
+      <div class="glass-card rounded-2xl p-8 fade-in group">
+        <div class="mb-6 inline-block p-4 rounded-2xl bg-purple-500/10 group-hover:bg-purple-500/20 transition-all">
+          <i data-feather="git-branch" class="text-purple-400 w-10 h-10"></i>
+        </div>
+        <h3 class="text-2xl font-semibold mb-4 text-white">Automatisation Intelligente</h3>
+        <p class="text-gray-400 mb-6 leading-relaxed">
+          Orchestration de workflows complexes avec agents IA, pipelines temps réel et monitoring intelligent pour une automatisation sans faille.
+        </p>
+        <div class="skill-tags">
+          <span class="skill-tag">n8n</span>
+          <span class="skill-tag">Agents</span>
+          <span class="skill-tag">Orchestration</span>
+        </div>
       </div>
-    </div>
 
-    <div class="glass-card rounded-2xl p-8 fade-in">
-      <i data-feather="zap" class="text-orange-400 mb-4 w-10 h-10"></i>
-      <h3 class="text-2xl font-light mb-4">Optimisation Algorithmique & GPU</h3>
-      <p class="text-gray-400 mb-4 font-light">
-        Profilage, quantization et fine-tuning d'inférences locales ultra-performantes.
-      </p>
-      <div class="skill-tags">
-        <span class="skill-tag">CUDA</span>
-        <span class="skill-tag">Profiling</span>
-        <span class="skill-tag">Quantization</span>
-        <span class="skill-tag">Fine-tuning</span>
-        <span class="skill-tag">Inference</span>
+      <!-- Card 4 -->
+      <div class="glass-card rounded-2xl p-8 fade-in group">
+        <div class="mb-6 inline-block p-4 rounded-2xl bg-green-500/10 group-hover:bg-green-500/20 transition-all">
+          <i data-feather="layers" class="text-green-400 w-10 h-10"></i>
+        </div>
+        <h3 class="text-2xl font-semibold mb-4 text-white">Intégration IA/Cloud Hybride</h3>
+        <p class="text-gray-400 mb-6 leading-relaxed">
+          Architectures hybrides équilibrant performance locale et capacités cloud. Le meilleur des deux mondes pour votre infrastructure.
+        </p>
+        <div class="skill-tags">
+          <span class="skill-tag">Hybrid Cloud</span>
+          <span class="skill-tag">API Gateway</span>
+          <span class="skill-tag">Load Balancing</span>
+        </div>
       </div>
-    </div>
 
-    <div class="glass-card rounded-2xl p-8 fade-in">
-      <i data-feather="shield" class="text-red-400 mb-4 w-10 h-10"></i>
-      <h3 class="text-2xl font-light mb-4">Sécurité Systémique & Souveraineté Numérique</h3>
-      <p class="text-gray-400 mb-4 font-light">
-        Architecture privacy-first. Maîtrise intégrale des flux et des dépendances.
-      </p>
-      <div class="skill-tags">
-        <span class="skill-tag">Privacy</span>
-        <span class="skill-tag">Zero Trust</span>
-        <span class="skill-tag">Audit</span>
-        <span class="skill-tag">Cloud local</span>
-        <span class="skill-tag">Sécurité</span>
+      <!-- Card 5 -->
+      <div class="glass-card rounded-2xl p-8 fade-in group">
+        <div class="mb-6 inline-block p-4 rounded-2xl bg-orange-500/10 group-hover:bg-orange-500/20 transition-all">
+          <i data-feather="bar-chart-2" class="text-orange-400 w-10 h-10"></i>
+        </div>
+        <h3 class="text-2xl font-semibold mb-4 text-white">Visualisation & Pilotage IA</h3>
+        <p class="text-gray-400 mb-6 leading-relaxed">
+          Dashboards temps réel, métriques de performance et observabilité complète pour piloter vos systèmes IA en toute transparence.
+        </p>
+        <div class="skill-tags">
+          <span class="skill-tag">Dashboards</span>
+          <span class="skill-tag">Metrics</span>
+          <span class="skill-tag">Monitoring</span>
+        </div>
+      </div>
+
+      <!-- Card 6 -->
+      <div class="glass-card rounded-2xl p-8 fade-in group">
+        <div class="mb-6 inline-block p-4 rounded-2xl bg-red-500/10 group-hover:bg-red-500/20 transition-all">
+          <i data-feather="shield" class="text-red-400 w-10 h-10"></i>
+        </div>
+        <h3 class="text-2xl font-semibold mb-4 text-white">Sécurité & Souveraineté</h3>
+        <p class="text-gray-400 mb-6 leading-relaxed">
+          Architecture privacy-first, conformité RGPD et maîtrise totale de vos données. Souveraineté numérique garantie.
+        </p>
+        <div class="skill-tags">
+          <span class="skill-tag">Privacy</span>
+          <span class="skill-tag">Zero Trust</span>
+          <span class="skill-tag">RGPD</span>
+          <span class="skill-tag">Audit</span>
+        </div>
       </div>
     </div>
   </div>
 </section>
 <!-- Exemples Concrets -->
-<section id="exemples" class="py-20 px-6 ">
-  <div class="container mx-auto fade-in">
-    <h2 class="text-3xl md:text-5xl font-light mb-12 text-center text-white">Exemples concrets d'application</h2>
-    <p class="text-gray-300 text-center mb-12 max-w-3xl mx-auto">
-      Découvrez comment mes compétences en IA locale peuvent transformer différents métiers, avec des résultats concrets et mesurables.
-    </p>
+<section id="exemples" class="py-24 px-6 bg-gradient-to-b from-transparent via-cyan-950/5 to-transparent">
+  <div class="container mx-auto max-w-7xl fade-in">
+    <div class="text-center mb-16">
+      <h2 class="text-4xl md:text-6xl font-bold mb-6">
+        Résultats <span class="gradient-text-cyan">Mesurables</span>
+      </h2>
+      <p class="text-xl text-gray-400 max-w-3xl mx-auto">
+        Des gains de performance concrets pour différents métiers. L'IA locale au service de votre efficacité opérationnelle.
+      </p>
+    </div>
     
     <div class="grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
       <!-- RH / Tri de CV -->
@@ -363,19 +531,62 @@ chartsData.forEach(cfg=>{
 
 
 
-   <!-- Approche -->
-  <section id="approche" class="min-h-screen py-20 px-6 flex items-center">
-    <div class="container mx-auto max-w-4xl fade-in">
-      <h2 class="text-3xl md:text-5xl font-light mb-8 text-center">Ma vision de l'IA</h2>
-      <div class="glass-card rounded-3xl p-8 md:p-12">
-        <p class="text-lg md:text-2xl leading-relaxed text-gray-200 font-light">
-          Je défends une <strong>intelligence locale</strong> : des systèmes capables d’agir et d’apprendre à proximité de la donnée, sans dépendance au cloud.  
+   <!-- Approche & Méthodologie -->
+  <section id="approche" class="py-24 px-6">
+    <div class="container mx-auto max-w-6xl">
+      <!-- Header -->
+      <div class="text-center mb-16 fade-in">
+        <h2 class="text-4xl md:text-6xl font-bold mb-6">
+          Ma <span class="gradient-text-cyan">Vision</span>
+        </h2>
+        <p class="text-xl text-gray-400 max-w-3xl mx-auto">
+          Une approche pragmatique de l'IA : souveraineté, performance et maîtrise.
+        </p>
+      </div>
+
+      <!-- Vision Statement -->
+      <div class="glass-card rounded-3xl p-10 md:p-14 mb-12 fade-in">
+        <p class="text-2xl md:text-3xl leading-relaxed text-gray-200 font-light text-center">
+          Je défends une <span class="gradient-text-cyan font-semibold">intelligence locale</span> : des systèmes capables d’agir et d’apprendre <span class="text-cyan-400 font-semibold">à proximité de la donnée</span>, sans dépendance au cloud.  
+        </p>
+        <p class="text-xl text-gray-400 mt-8 text-center leading-relaxed">
           Cela permet aux organisations de rester maîtres de leurs outils, de leurs coûts et de leur souveraineté numérique.
         </p>
-        <div class="skill-tags justify-center mt-6">
-          <span class="skill-tag">Agents edge</span>
-          <span class="skill-tag">Privacy by design</span>
-          <span class="skill-tag">GPU optimization</span>
+      </div>
+
+      <!-- Méthodologie -->
+      <div class="grid md:grid-cols-3 gap-8 fade-in">
+        <!-- Étape 1 -->
+        <div class="glass-card rounded-2xl p-8 text-center group hover:border-cyan-400/50 transition-all">
+          <div class="w-16 h-16 mx-auto mb-6 rounded-full bg-cyan-500/10 flex items-center justify-center text-3xl font-bold text-cyan-400 group-hover:bg-cyan-500/20 transition-all">
+            1
+          </div>
+          <h3 class="text-2xl font-semibold mb-4 text-white">Analyse</h3>
+          <p class="text-gray-400 leading-relaxed">
+            Audit de vos besoins et contraintes techniques. Identification des opportunités d'optimisation IA locale.
+          </p>
+        </div>
+
+        <!-- Étape 2 -->
+        <div class="glass-card rounded-2xl p-8 text-center group hover:border-cyan-400/50 transition-all">
+          <div class="w-16 h-16 mx-auto mb-6 rounded-full bg-cyan-500/10 flex items-center justify-center text-3xl font-bold text-cyan-400 group-hover:bg-cyan-500/20 transition-all">
+            2
+          </div>
+          <h3 class="text-2xl font-semibold mb-4 text-white">Design & Prototypage</h3>
+          <p class="text-gray-400 leading-relaxed">
+            Architecture sur mesure et POC rapides. Validation des performances avant déploiement à grande échelle.
+          </p>
+        </div>
+
+        <!-- Étape 3 -->
+        <div class="glass-card rounded-2xl p-8 text-center group hover:border-cyan-400/50 transition-all">
+          <div class="w-16 h-16 mx-auto mb-6 rounded-full bg-cyan-500/10 flex items-center justify-center text-3xl font-bold text-cyan-400 group-hover:bg-cyan-500/20 transition-all">
+            3
+          </div>
+          <h3 class="text-2xl font-semibold mb-4 text-white">Déploiement & Optimisation</h3>
+          <p class="text-gray-400 leading-relaxed">
+            Mise en production progressive, monitoring temps réel et optimisation continue des performances.
+          </p>
         </div>
       </div>
     </div>
