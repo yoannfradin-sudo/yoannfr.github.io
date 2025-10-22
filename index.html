@@ -619,23 +619,69 @@ chartsData.forEach(cfg=>{
     </div>
   </section>
 
-  <!-- Contact -->
-  <section id="contact" class="min-h-screen py-20 px-6 flex items-center justify-center text-center">
-    <div class="container mx-auto max-w-2xl fade-in">
-      <h2 class="text-3xl md:text-5xl font-light mb-6">Entrer en contact</h2>
-      <p class="text-lg md:text-xl text-gray-300 mb-10 font-light">
-        Vous souhaitez intégrer l’IA locale à vos systèmes ou simplement échanger sur mes travaux ?
-      </p>
-      <a href="mailto:admin@yoannfradin.fr" class="inline-block border border-white/30 text-white px-8 py-4 rounded-full font-medium hover:bg-white hover:text-black transition transform hover:scale-105">
-        contact@yoannfradin.fr
-      </a>
-    </div>
-  </section>
+<!-- Section Contact -->
+<section id="contact" class="py-24 px-6 relative">
+  <div class="container mx-auto max-w-5xl text-center fade-in">
+    <h2 class="text-4xl md:text-6xl font-bold mb-8">
+      Me <span class="gradient-text-cyan">Contacter</span>
+    </h2>
+    <p class="text-lg md:text-xl text-gray-400 mb-16 max-w-2xl mx-auto">
+      Une idée, un projet, ou simplement une question sur l’IA locale ? Discutons-en — je réponds rapidement et personnellement.
+    </p>
 
-  <!-- Footer -->
-  <footer class="py-8 px-6 border-t border-gray-800 text-center text-gray-500 text-sm">
-    &copy; 2025 Yoann Fradin. Tous droits réservés.
-  </footer>
+    <div class="glass-card rounded-2xl p-10 md:p-14 mx-auto max-w-3xl fade-in">
+      <form action="https://formspree.io/f/myznqeok" method="POST" class="space-y-6">
+        <!-- Nom -->
+        <div class="text-left">
+          <label class="block text-gray-300 mb-2 font-medium">Nom</label>
+          <input type="text" name="name" required
+                 class="w-full rounded-xl bg-black/30 border border-cyan-500/20 focus:border-cyan-400 text-white px-4 py-3 outline-none transition-all duration-300 focus:ring-2 focus:ring-cyan-400/30" />
+        </div>
+
+        <!-- Email -->
+        <div class="text-left">
+          <label class="block text-gray-300 mb-2 font-medium">Email</label>
+          <input type="email" name="email" required
+                 class="w-full rounded-xl bg-black/30 border border-cyan-500/20 focus:border-cyan-400 text-white px-4 py-3 outline-none transition-all duration-300 focus:ring-2 focus:ring-cyan-400/30" />
+        </div>
+
+        <!-- Message -->
+        <div class="text-left">
+          <label class="block text-gray-300 mb-2 font-medium">Message</label>
+          <textarea name="message" rows="5" required
+                    class="w-full rounded-xl bg-black/30 border border-cyan-500/20 focus:border-cyan-400 text-white px-4 py-3 outline-none transition-all duration-300 focus:ring-2 focus:ring-cyan-400/30"></textarea>
+        </div>
+
+        <!-- Bouton -->
+        <button type="submit" class="btn-primary w-full py-4 rounded-full font-semibold text-lg transition-all mt-4">
+          Envoyer le message
+        </button>
+      </form>
+    </div>
+
+    <!-- Coordonnées -->
+    <div class="mt-16 flex flex-col md:flex-row justify-center items-center gap-8 text-gray-400 fade-in">
+      <div class="flex items-center gap-3">
+        <i data-feather="mail" class="text-cyan-400 w-6 h-6"></i>
+        <span>admin@yoannfradin.fr</span>
+      </div>
+      <div class="flex items-center gap-3">
+        <i data-feather="map-pin" class="text-cyan-400 w-6 h-6"></i>
+        <span>Dijon, France</span>
+      </div>
+      <div class="flex items-center gap-3">
+        <i data-feather="linkedin" class="text-cyan-400 w-6 h-6"></i>
+        <a href="https://linkedin.com/in/yoannfradin" target="_blank" class="hover:text-cyan-300 transition">LinkedIn</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer class="py-10 text-center text-gray-500 text-sm">
+  © 2025 Yoann Fradin — Tous droits réservés
+</footer>
+
 
   <script>
     // Vanta.js background
