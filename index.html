@@ -2,22 +2,143 @@
 <html lang="fr">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
   <title>Yoann Fradin – Expert en IA Locale & Automatisation Intelligente</title>
   <meta name="description" content="Expert en IA locale, edge computing et automatisation. J'aide les entreprises à déployer des solutions d'intelligence artificielle rapides, sûres et souveraines.">
+  <meta name="theme-color" content="#0A0E27" />
+  <meta name="author" content="Yoann Fradin" />
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website" />
+  <meta property="og:locale" content="fr_FR" />
+  <meta property="og:title" content="Yoann Fradin – Expert en IA Locale & Automatisation Intelligente" />
+  <meta property="og:description" content="IA locale, edge computing et automatisation : des solutions rapides, sûres et souveraines." />
+  <meta property="og:url" content="https://yoannfradin.fr/" />
+
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Yoann Fradin – Expert en IA Locale" />
+  <meta name="twitter:description" content="IA locale, edge computing et automatisation intelligente." />
+
   <link rel="icon" type="image/x-icon" href="/static/favicon.ico">
+  <link rel="canonical" href="https://yoannfradin.fr/" />
+
+  <!-- Preconnect / DNS prefetch pour les CDN externes -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="dns-prefetch" href="https://cdn.tailwindcss.com" />
+  <link rel="dns-prefetch" href="https://cdn.jsdelivr.net" />
+  <link rel="dns-prefetch" href="https://unpkg.com" />
+  <link rel="dns-prefetch" href="https://cdnjs.cloudflare.com" />
+
+  <!-- Polices chargées via <link> pour éviter le blocage CSS -->
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+
   <script src="https://cdn.tailwindcss.com"></script>
-  <script src="https://unpkg.com/feather-icons"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r134/three.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/vanta@latest/dist/vanta.net.min.js"></script>
+  <script src="https://unpkg.com/feather-icons" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r134/three.min.js" defer></script>
+  <script src="https://cdn.jsdelivr.net/npm/vanta@latest/dist/vanta.net.min.js" defer></script>
 
   <style>
-    @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&display=swap');
     * { font-family: 'Space Grotesk', 'Inter', -apple-system, sans-serif; }
 
-    body { 
+    html {
+      scroll-behavior: smooth;
+      scroll-padding-top: 6rem; /* Offset pour la nav fixe lors des ancres */
+    }
+
+    body {
       overflow-x: hidden;
       background: linear-gradient(180deg, #0A0E27 0%, #0F1419 50%, #000000 100%);
+    }
+
+    /* Accessibilité : focus visible uniforme */
+    :focus-visible {
+      outline: 2px solid #00D9FF;
+      outline-offset: 3px;
+      border-radius: 4px;
+    }
+
+    /* Skip-to-content link */
+    .skip-link {
+      position: absolute;
+      left: -9999px;
+      top: 0;
+      background: #00D9FF;
+      color: #0A0E27;
+      padding: 0.75rem 1.25rem;
+      font-weight: 600;
+      border-radius: 0 0 0.75rem 0;
+      z-index: 100;
+    }
+    .skip-link:focus { left: 0; }
+
+    /* Barre de progression de scroll */
+    .scroll-progress {
+      position: fixed;
+      top: 0; left: 0;
+      height: 3px;
+      width: 0%;
+      background: linear-gradient(90deg, #00D9FF, #3b82f6, #8b5cf6);
+      z-index: 60;
+      transition: width 0.1s linear;
+      box-shadow: 0 0 10px rgba(0, 217, 255, 0.5);
+    }
+
+    /* Bouton retour en haut */
+    .back-to-top {
+      position: fixed;
+      bottom: 6rem;
+      right: 1.5rem;
+      width: 3rem;
+      height: 3rem;
+      border-radius: 9999px;
+      background: linear-gradient(135deg, #00D9FF 0%, #06b6d4 100%);
+      color: #0A0E27;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      pointer-events: none;
+      transform: translateY(10px);
+      transition: opacity 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+      z-index: 45;
+      box-shadow: 0 4px 20px rgba(0, 217, 255, 0.35);
+    }
+    .back-to-top.visible {
+      opacity: 1;
+      pointer-events: auto;
+      transform: translateY(0);
+    }
+    .back-to-top:hover {
+      box-shadow: 0 8px 30px rgba(0, 217, 255, 0.55);
+      transform: translateY(-3px);
+    }
+    @media (min-width: 768px) {
+      .back-to-top { bottom: 2rem; }
+    }
+
+    /* Nav link état actif */
+    .nav-link {
+      position: relative;
+      padding-bottom: 0.25rem;
+    }
+    .nav-link.active {
+      color: #00D9FF;
+    }
+    .nav-link.active::after {
+      content: '';
+      position: absolute;
+      left: 0; right: 0; bottom: -4px;
+      height: 2px;
+      background: linear-gradient(90deg, #00D9FF, #3b82f6);
+      border-radius: 2px;
+    }
+    .mobile-nav-link.active {
+      color: #00D9FF;
+    }
+    .mobile-nav-link.active i {
+      filter: drop-shadow(0 0 6px rgba(0, 217, 255, 0.6));
     }
 
     /* Animations */
@@ -194,6 +315,72 @@
       .skill-tag { font-size: 0.75rem; padding: 0.35rem 0.8rem; }
       .grid { gap: 1rem !important; }
       section { padding: 4rem 1rem !important; }
+      /* Safe-area iOS pour la nav mobile */
+      .mobile-nav {
+        bottom: calc(1rem + env(safe-area-inset-bottom, 0px));
+      }
+      body {
+        padding-bottom: calc(5rem + env(safe-area-inset-bottom, 0px));
+      }
+    }
+
+    /* Form feedback */
+    .form-status {
+      margin-top: 1rem;
+      padding: 0.75rem 1rem;
+      border-radius: 0.75rem;
+      font-size: 0.9rem;
+      display: none;
+    }
+    .form-status.success {
+      display: block;
+      background: rgba(16, 185, 129, 0.1);
+      border: 1px solid rgba(16, 185, 129, 0.4);
+      color: #6ee7b7;
+    }
+    .form-status.error {
+      display: block;
+      background: rgba(239, 68, 68, 0.1);
+      border: 1px solid rgba(239, 68, 68, 0.4);
+      color: #fca5a5;
+    }
+    .btn-primary[disabled] {
+      opacity: 0.7;
+      cursor: wait;
+      transform: none !important;
+    }
+    .spinner {
+      display: inline-block;
+      width: 1rem;
+      height: 1rem;
+      border: 2px solid rgba(10, 14, 39, 0.3);
+      border-top-color: #0A0E27;
+      border-radius: 50%;
+      animation: spin 0.7s linear infinite;
+      vertical-align: middle;
+      margin-right: 0.5rem;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    /* Honeypot caché */
+    .hp-field {
+      position: absolute !important;
+      left: -9999px !important;
+      width: 1px; height: 1px;
+      overflow: hidden;
+    }
+
+    /* Respect des préférences utilisateur */
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+      }
+      .fade-in, .slide-in-left { opacity: 1 !important; transform: none !important; }
+      .grid-pattern { animation: none !important; }
+      #vanta-bg { display: none; }
     }
 
     /* Animated gradient text */
@@ -215,50 +402,57 @@
 </head>
 
 <body class="text-white relative">
+  <!-- Skip to content (accessibilité) -->
+  <a href="#main" class="skip-link">Aller au contenu principal</a>
+
+  <!-- Barre de progression du scroll -->
+  <div class="scroll-progress" id="scroll-progress" aria-hidden="true"></div>
+
   <!-- Background avec grille dynamique -->
-  <div id="vanta-bg" class="fixed inset-0 -z-20"></div>
-  <div class="fixed inset-0 -z-10 grid-pattern opacity-30"></div>
-<!-- Mobile Navigation -->
-  <nav class="fixed bottom-4 left-1/2 transform -translate-x-1/2 w-11/12 md:hidden z-50 glass-nav rounded-3xl flex justify-around py-3 px-4 shadow-lg">
-    <a href="#accueil" class="flex flex-col items-center text-gray-300 hover:text-cyan-400 transition-all duration-300">
+  <div id="vanta-bg" class="fixed inset-0 -z-20" aria-hidden="true"></div>
+  <div class="fixed inset-0 -z-10 grid-pattern opacity-30" aria-hidden="true"></div>
+
+  <!-- Mobile Navigation -->
+  <nav class="mobile-nav fixed bottom-4 left-1/2 transform -translate-x-1/2 w-11/12 md:hidden z-50 glass-nav rounded-3xl flex justify-around py-3 px-4 shadow-lg" aria-label="Navigation principale mobile">
+    <a href="#accueil" data-nav="accueil" class="mobile-nav-link flex flex-col items-center text-gray-300 hover:text-cyan-400 transition-all duration-300" aria-label="Section Accueil">
       <i data-feather="home" class="w-5 h-5 mb-1"></i>
       <span class="text-xs">Accueil</span>
     </a>
-    <a href="#expertise" class="flex flex-col items-center text-gray-300 hover:text-cyan-400 transition-all duration-300">
+    <a href="#expertise" data-nav="expertise" class="mobile-nav-link flex flex-col items-center text-gray-300 hover:text-cyan-400 transition-all duration-300" aria-label="Section Expertise">
       <i data-feather="grid" class="w-5 h-5 mb-1"></i>
       <span class="text-xs">Expertise</span>
     </a>
-    <a href="#exemples" class="flex flex-col items-center text-gray-300 hover:text-cyan-400 transition-all duration-300">
+    <a href="#exemples" data-nav="exemples" class="mobile-nav-link flex flex-col items-center text-gray-300 hover:text-cyan-400 transition-all duration-300" aria-label="Section Exemples">
       <i data-feather="trello" class="w-5 h-5 mb-1"></i>
       <span class="text-xs">Exemples</span>
     </a>
-    <a href="#approche" class="flex flex-col items-center text-gray-300 hover:text-cyan-400 transition-all duration-300">
+    <a href="#approche" data-nav="approche" class="mobile-nav-link flex flex-col items-center text-gray-300 hover:text-cyan-400 transition-all duration-300" aria-label="Section Approche">
       <i data-feather="target" class="w-5 h-5 mb-1"></i>
       <span class="text-xs">Approche</span>
     </a>
-    <a href="#contact" class="flex flex-col items-center text-gray-300 hover:text-cyan-400 transition-all duration-300">
+    <a href="#contact" data-nav="contact" class="mobile-nav-link flex flex-col items-center text-gray-300 hover:text-cyan-400 transition-all duration-300" aria-label="Section Contact">
       <i data-feather="mail" class="w-5 h-5 mb-1"></i>
       <span class="text-xs">Contact</span>
     </a>
   </nav>
 
   <!-- Desktop Navigation -->
-  <nav class="fixed top-0 w-full z-50 glass-nav">
-    <div class="container mx-auto px-6 py-5 flex justify-between items-center">
-      <div class="text-xl font-semibold tracking-tight">
+  <header class="fixed top-0 w-full z-50 glass-nav">
+    <nav class="container mx-auto px-6 py-5 flex justify-between items-center" aria-label="Navigation principale">
+      <a href="#accueil" class="text-xl font-semibold tracking-tight" aria-label="Retour en haut de page">
         <span class="gradient-text-cyan">YF</span>
-      </div>
+      </a>
       <div class="hidden md:flex space-x-10 text-sm font-medium">
-        <a href="#accueil" class="text-gray-300 hover:text-cyan-400 transition-all duration-300">Accueil</a>
-        <a href="#expertise" class="text-gray-300 hover:text-cyan-400 transition-all duration-300">Expertise</a>
-        <a href="#exemples" class="text-gray-300 hover:text-cyan-400 transition-all duration-300">Exemples</a>
-        <a href="#approche" class="text-gray-300 hover:text-cyan-400 transition-all duration-300">Approche</a>
-        <a href="#contact" class="text-gray-300 hover:text-cyan-400 transition-all duration-300">Contact</a>
+        <a href="#accueil" data-nav="accueil" class="nav-link text-gray-300 hover:text-cyan-400 transition-all duration-300">Accueil</a>
+        <a href="#expertise" data-nav="expertise" class="nav-link text-gray-300 hover:text-cyan-400 transition-all duration-300">Expertise</a>
+        <a href="#exemples" data-nav="exemples" class="nav-link text-gray-300 hover:text-cyan-400 transition-all duration-300">Exemples</a>
+        <a href="#approche" data-nav="approche" class="nav-link text-gray-300 hover:text-cyan-400 transition-all duration-300">Approche</a>
+        <a href="#contact" data-nav="contact" class="nav-link text-gray-300 hover:text-cyan-400 transition-all duration-300">Contact</a>
       </div>
-    </div>
-  </nav>
+    </nav>
+  </header>
 
-  
+  <main id="main">
   <!-- Hero Section -->
   <section id="accueil" class="min-h-screen flex flex-col items-center justify-center text-center px-6 pt-20">
     <div class="max-w-5xl mx-auto fade-in">
@@ -593,17 +787,17 @@ chartsData.forEach(cfg=>{
   </section>
 
   <!-- À propos -->
-  <section id="apropos" class="min-h-screen py-20 px-6 flex items-center">
+  <section id="apropos" class="py-24 px-6 flex items-center" aria-labelledby="apropos-title">
     <div class="container mx-auto max-w-6xl grid md:grid-cols-2 gap-12 items-center fade-in">
-      
       <img src="https://leclaireur.fnac.com/wp-content/uploads/2022/06/shutterstock-1039097026-1256x826.jpg"
-        alt="Yoann Fradin"
-        class="rounded-2xl w-full h-auto border border-gray-700 hover:border-blue-500 transition-all duration-700">
-      <div>
-        <div class="glass-card rounded-2xl p-8 fade-in">
-        <h2 class="text-3xl md:text-5xl font-light mb-6">Yoann Fradin</h2>
+        alt="Portrait illustrant l'univers de l'IA locale et de l'edge computing"
+        loading="lazy"
+        decoding="async"
+        class="rounded-2xl w-full h-auto border border-gray-700 hover:border-cyan-400/60 transition-all duration-700 shadow-lg shadow-cyan-500/5">
+      <div class="glass-card rounded-2xl p-8">
+        <h2 id="apropos-title" class="text-3xl md:text-5xl font-light mb-6">Yoann Fradin</h2>
         <p class="text-lg md:text-xl leading-relaxed text-gray-300 mb-6 font-light">
-          Passionné par les architectures distribuées et l’automatisation intelligente.  
+          Passionné par les architectures distribuées et l’automatisation intelligente.
           J’explore la frontière entre systèmes humains et machines locales pour créer des écosystèmes autonomes et souverains.
         </p>
         <div class="skill-tags">
@@ -611,123 +805,254 @@ chartsData.forEach(cfg=>{
           <span class="skill-tag">Automatisation intelligente</span>
           <span class="skill-tag">Edge computing</span>
         </div>
-        <div class="mt-8 space-y-3 text-gray-400 text-sm md:text-base">
-          <div class="flex items-center"><i data-feather="map-pin" class="w-5 h-5 mr-3"></i><span>France</span></div>
-          <div class="flex items-center"><i data-feather="award" class="w-5 h-5 mr-3"></i><span>Expert IA Locale & Automatisation</span></div>
+        <div class="mt-8 space-y-3 text-gray-300 text-sm md:text-base">
+          <div class="flex items-center"><i data-feather="map-pin" class="w-5 h-5 mr-3 text-cyan-400" aria-hidden="true"></i><span>France</span></div>
+          <div class="flex items-center"><i data-feather="award" class="w-5 h-5 mr-3 text-cyan-400" aria-hidden="true"></i><span>Expert IA Locale &amp; Automatisation</span></div>
         </div>
       </div>
     </div>
   </section>
 
 <!-- Section Contact -->
-<section id="contact" class="py-24 px-6 relative">
+<section id="contact" class="py-24 px-6 relative" aria-labelledby="contact-title">
   <div class="container mx-auto max-w-5xl text-center fade-in">
-    <h2 class="text-4xl md:text-6xl font-bold mb-8">
+    <h2 id="contact-title" class="text-4xl md:text-6xl font-bold mb-8">
       Me <span class="gradient-text-cyan">Contacter</span>
     </h2>
-    <p class="text-lg md:text-xl text-gray-400 mb-16 max-w-2xl mx-auto">
+    <p class="text-lg md:text-xl text-gray-300 mb-16 max-w-2xl mx-auto">
       Une idée, un projet, ou simplement une question sur l’IA locale ? Discutons-en — je réponds rapidement et personnellement.
     </p>
 
     <div class="glass-card rounded-2xl p-10 md:p-14 mx-auto max-w-3xl fade-in">
-      <form action="https://formspree.io/f/myznqeok" method="POST" class="space-y-6">
+      <form id="contact-form" action="https://formspree.io/f/myznqeok" method="POST" class="space-y-6" novalidate>
+        <!-- Honeypot anti-spam -->
+        <div class="hp-field" aria-hidden="true">
+          <label>Laissez ce champ vide<input type="text" name="_gotcha" tabindex="-1" autocomplete="off" /></label>
+        </div>
+
         <!-- Nom -->
         <div class="text-left">
-          <label class="block text-gray-300 mb-2 font-medium">Nom</label>
-          <input type="text" name="name" required
+          <label for="contact-name" class="block text-gray-200 mb-2 font-medium">Nom <span class="text-cyan-400" aria-hidden="true">*</span></label>
+          <input id="contact-name" type="text" name="name" required autocomplete="name"
                  class="w-full rounded-xl bg-black/30 border border-cyan-500/20 focus:border-cyan-400 text-white px-4 py-3 outline-none transition-all duration-300 focus:ring-2 focus:ring-cyan-400/30" />
         </div>
 
         <!-- Email -->
         <div class="text-left">
-          <label class="block text-gray-300 mb-2 font-medium">Email</label>
-          <input type="email" name="email" required
+          <label for="contact-email" class="block text-gray-200 mb-2 font-medium">Email <span class="text-cyan-400" aria-hidden="true">*</span></label>
+          <input id="contact-email" type="email" name="email" required autocomplete="email"
                  class="w-full rounded-xl bg-black/30 border border-cyan-500/20 focus:border-cyan-400 text-white px-4 py-3 outline-none transition-all duration-300 focus:ring-2 focus:ring-cyan-400/30" />
         </div>
 
         <!-- Message -->
         <div class="text-left">
-          <label class="block text-gray-300 mb-2 font-medium">Message</label>
-          <textarea name="message" rows="5" required
+          <label for="contact-message" class="block text-gray-200 mb-2 font-medium">Message <span class="text-cyan-400" aria-hidden="true">*</span></label>
+          <textarea id="contact-message" name="message" rows="5" required minlength="10"
                     class="w-full rounded-xl bg-black/30 border border-cyan-500/20 focus:border-cyan-400 text-white px-4 py-3 outline-none transition-all duration-300 focus:ring-2 focus:ring-cyan-400/30"></textarea>
         </div>
 
         <!-- Bouton -->
-        <button type="submit" class="btn-primary w-full py-4 rounded-full font-semibold text-lg transition-all mt-4">
-          Envoyer le message
+        <button id="contact-submit" type="submit" class="btn-primary w-full py-4 rounded-full font-semibold text-lg transition-all mt-4">
+          <span class="btn-label">Envoyer le message</span>
         </button>
+
+        <!-- Feedback -->
+        <div id="form-status" class="form-status" role="status" aria-live="polite"></div>
       </form>
     </div>
 
     <!-- Coordonnées -->
-    <div class="mt-16 flex flex-col md:flex-row justify-center items-center gap-8 text-gray-400 fade-in">
-      <div class="flex items-center gap-3">
-        <i data-feather="mail" class="text-cyan-400 w-6 h-6"></i>
+    <div class="mt-16 flex flex-col md:flex-row justify-center items-center gap-8 text-gray-300 fade-in">
+      <a href="mailto:admin@yoannfradin.fr" class="flex items-center gap-3 hover:text-cyan-300 transition">
+        <i data-feather="mail" class="text-cyan-400 w-6 h-6" aria-hidden="true"></i>
         <span>admin@yoannfradin.fr</span>
-      </div>
+      </a>
       <div class="flex items-center gap-3">
-        <i data-feather="map-pin" class="text-cyan-400 w-6 h-6"></i>
+        <i data-feather="map-pin" class="text-cyan-400 w-6 h-6" aria-hidden="true"></i>
         <span>Dijon, France</span>
       </div>
-      <div class="flex items-center gap-3">
-        <i data-feather="linkedin" class="text-cyan-400 w-6 h-6"></i>
-        <a href="https://linkedin.com/in/yoannfradin" target="_blank" class="hover:text-cyan-300 transition">LinkedIn</a>
-      </div>
+      <a href="https://linkedin.com/in/yoannfradin" target="_blank" rel="noopener" class="flex items-center gap-3 hover:text-cyan-300 transition">
+        <i data-feather="linkedin" class="text-cyan-400 w-6 h-6" aria-hidden="true"></i>
+        <span>LinkedIn</span>
+      </a>
     </div>
   </div>
 </section>
+  </main>
 
-<!-- Footer -->
-<footer class="py-10 text-center text-gray-500 text-sm">
-  © 2025 Yoann Fradin — Tous droits réservés
-</footer>
+  <!-- Bouton retour en haut -->
+  <button type="button" id="back-to-top" class="back-to-top" aria-label="Retour en haut de la page">
+    <i data-feather="arrow-up" class="w-5 h-5" aria-hidden="true"></i>
+  </button>
+
+  <!-- Footer -->
+  <footer class="py-10 text-center text-gray-400 text-sm">
+    © 2025 Yoann Fradin — Tous droits réservés
+  </footer>
 
 
   <script>
-    // Vanta.js background
-    VANTA.NET({
-      el: "#vanta-bg",
-      mouseControls: true,
-      touchControls: true,
-      color: 0x3b82f6,
-      backgroundColor: 0x000000,
-      points: 12.00,
-      maxDistance: 22.00,
-      spacing: 18.00
-    });
+    (function () {
+      const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-    // Fade-in observer
-    const fadeObserver = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) entry.target.classList.add('visible');
-      });
-    }, { threshold: 0.1 });
-    document.querySelectorAll('.fade-in').forEach(el => fadeObserver.observe(el));
-
-    // Skill-tag cascade observer
-    const skillObserver = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          const tags = entry.target.querySelectorAll('.skill-tag');
-          tags.forEach((tag, i) => {
-            setTimeout(() => tag.classList.add('visible'), i * 100);
+      // Vanta.js background — lancé après chargement, uniquement si autorisé
+      function initVanta() {
+        if (prefersReducedMotion) return;
+        if (typeof VANTA === 'undefined' || !VANTA.NET) return;
+        try {
+          VANTA.NET({
+            el: "#vanta-bg",
+            mouseControls: true,
+            touchControls: true,
+            color: 0x3b82f6,
+            backgroundColor: 0x000000,
+            points: 12.00,
+            maxDistance: 22.00,
+            spacing: 18.00
           });
-          skillObserver.unobserve(entry.target);
-        }
-      });
-    }, { threshold: 0.3 });
-    document.querySelectorAll('.skill-tags').forEach(el => skillObserver.observe(el));
+        } catch (e) { /* noop */ }
+      }
 
-    // Feather icons
-    feather.replace();
+      // Feather icons — peut être chargé en defer
+      function initFeather() {
+        if (typeof feather !== 'undefined' && feather.replace) feather.replace();
+      }
 
-    // Smooth scrolling
-    document.querySelectorAll('a[href^="#"]').forEach(a => {
-      a.addEventListener('click', e => {
-        e.preventDefault();
-        document.querySelector(a.getAttribute('href')).scrollIntoView({ behavior: 'smooth' });
+      window.addEventListener('load', () => {
+        initFeather();
+        initVanta();
       });
-    });
+
+      // Fade-in observer
+      const fadeObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+            fadeObserver.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.1 });
+      document.querySelectorAll('.fade-in').forEach(el => fadeObserver.observe(el));
+
+      // Skill-tag cascade observer
+      const skillObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            const tags = entry.target.querySelectorAll('.skill-tag');
+            tags.forEach((tag, i) => {
+              setTimeout(() => tag.classList.add('visible'), i * 80);
+            });
+            skillObserver.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.3 });
+      document.querySelectorAll('.skill-tags').forEach(el => skillObserver.observe(el));
+
+      // Barre de progression du scroll
+      const progress = document.getElementById('scroll-progress');
+      function updateProgress() {
+        const h = document.documentElement;
+        const scrolled = h.scrollTop;
+        const max = h.scrollHeight - h.clientHeight;
+        const pct = max > 0 ? (scrolled / max) * 100 : 0;
+        if (progress) progress.style.width = pct + '%';
+      }
+      updateProgress();
+      window.addEventListener('scroll', updateProgress, { passive: true });
+
+      // Back-to-top
+      const backToTop = document.getElementById('back-to-top');
+      function toggleBackToTop() {
+        if (!backToTop) return;
+        if (window.scrollY > 600) backToTop.classList.add('visible');
+        else backToTop.classList.remove('visible');
+      }
+      window.addEventListener('scroll', toggleBackToTop, { passive: true });
+      if (backToTop) {
+        backToTop.addEventListener('click', () => {
+          window.scrollTo({ top: 0, behavior: prefersReducedMotion ? 'auto' : 'smooth' });
+        });
+      }
+
+      // Nav active state via IntersectionObserver
+      const sections = ['accueil', 'expertise', 'exemples', 'approche', 'contact']
+        .map(id => document.getElementById(id))
+        .filter(Boolean);
+      const navLinks = document.querySelectorAll('[data-nav]');
+      const navObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            const id = entry.target.id;
+            navLinks.forEach(l => l.classList.toggle('active', l.dataset.nav === id));
+          }
+        });
+      }, { rootMargin: '-40% 0px -55% 0px', threshold: 0 });
+      sections.forEach(s => navObserver.observe(s));
+
+      // Smooth scroll avec offset géré via scroll-padding-top
+      document.querySelectorAll('a[href^="#"]').forEach(a => {
+        a.addEventListener('click', e => {
+          const href = a.getAttribute('href');
+          if (!href || href === '#') return;
+          const target = document.querySelector(href);
+          if (!target) return;
+          e.preventDefault();
+          target.scrollIntoView({ behavior: prefersReducedMotion ? 'auto' : 'smooth', block: 'start' });
+          // Met à jour l'URL sans re-scroller
+          history.replaceState(null, '', href);
+        });
+      });
+
+      // Contact form : soumission AJAX avec feedback
+      const form = document.getElementById('contact-form');
+      const statusEl = document.getElementById('form-status');
+      const submitBtn = document.getElementById('contact-submit');
+      if (form && statusEl && submitBtn) {
+        const originalLabel = submitBtn.innerHTML;
+        form.addEventListener('submit', async (e) => {
+          e.preventDefault();
+          statusEl.className = 'form-status';
+          statusEl.textContent = '';
+
+          // Validation native
+          if (!form.checkValidity()) {
+            statusEl.className = 'form-status error';
+            statusEl.textContent = 'Merci de remplir correctement tous les champs obligatoires.';
+            return;
+          }
+
+          submitBtn.disabled = true;
+          submitBtn.innerHTML = '<span class="spinner" aria-hidden="true"></span>Envoi en cours…';
+
+          try {
+            const data = new FormData(form);
+            const res = await fetch(form.action, {
+              method: 'POST',
+              body: data,
+              headers: { 'Accept': 'application/json' }
+            });
+            if (res.ok) {
+              form.reset();
+              statusEl.className = 'form-status success';
+              statusEl.textContent = 'Message envoyé ! Je reviens vers vous rapidement.';
+            } else {
+              const body = await res.json().catch(() => ({}));
+              const msg = body && body.errors && body.errors[0] && body.errors[0].message
+                ? body.errors[0].message
+                : "Une erreur est survenue. Merci de réessayer ou de m'écrire directement.";
+              statusEl.className = 'form-status error';
+              statusEl.textContent = msg;
+            }
+          } catch (err) {
+            statusEl.className = 'form-status error';
+            statusEl.textContent = 'Problème réseau. Merci de réessayer dans un instant.';
+          } finally {
+            submitBtn.disabled = false;
+            submitBtn.innerHTML = originalLabel;
+          }
+        });
+      }
+    })();
   </script>
 </body>
 </html>
